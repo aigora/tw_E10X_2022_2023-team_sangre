@@ -1,11 +1,14 @@
-# [Título del trabajo]
+# Team_Sangre
 
 [Descripción breve del proyecto a realizar (2-3 frases).]
 
 ## Integrantes del equipo
 
-[Nombres, apellidos, y usuario GitHub de los integrantes del equipo.]
+Gonzalo Morcilo Garcia
+Jose Eduardo Arauz Yllanez
+David Cano Pérez
+Álvaro Cuesta Sanz
 
 ## Objetivos del trabajo
 
-[Lista de los objetivos que se persiguen con el trabajo propuesto.]
+Sacar el 10
