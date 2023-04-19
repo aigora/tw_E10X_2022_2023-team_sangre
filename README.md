@@ -4,10 +4,10 @@
 
 ## Integrantes del equipo
 
-Gonzalo Morcilo Garcia\n
-Jose Eduardo Arauz Yllanez\n
-David Cano Pérez\n
-Álvaro Cuesta Sanz\n
+Gonzalo Morcilo Garcia
+Jose Eduardo Arauz Yllanez
+David Cano Pérez
+Álvaro Cuesta Sanz
 
 ## Objetivos del trabajo
 
