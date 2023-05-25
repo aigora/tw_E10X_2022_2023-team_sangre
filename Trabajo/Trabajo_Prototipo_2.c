@@ -151,7 +151,7 @@ int main()
 	
 	if(seleccion == 2)
 	{
-		/*Si en la funciï¿½n salta un return -1, en esta funciï¿½n tmabiï¿½n se hace el return -1*/
+		/*Si en la función salta un return -1, en esta funciï¿½n tmabiï¿½n se hace el return -1*/
 		comprobacion_error = IniciarSesion();
 		if(comprobacion_error == -1)
 		{
@@ -166,827 +166,754 @@ int main()
 
 //FUNCIONES (En orden de uso)
 
-/*Funciï¿½n Crear Cuenta*/
+/*Función Crear Cuenta*/
 
 int CrearCuenta()
 {
 	/*Creamos las variables que utilizaremos en esta parte*/
-		crear_cuenta CCusuario;
-		int i, j, k;
-		printf("\n\n\n\nCREAR CUENTA");
+	crear_cuenta CCusuario;
+	int i, j, k;
+	printf("\n\n\n\nCREAR CUENTA");
 		
-		/*Creamos y abrimos el fichero donde vamos a guardar los datos del usuario*/
-		FILE *pf;
-		pf = fopen("Ficheros/Crear_Cuenta.txt", "a");
-		if(pf == NULL)
+	/*Creamos y abrimos el fichero donde vamos a guardar los datos del usuario*/
+	FILE *pf;
+	pf = fopen("Ficheros/Crear_Cuenta.txt", "a");
+	if(pf == NULL)
+	{
+		printf("ERROR; no he encontrado el archivo");
+		return -1;
+	}
+	else
+	{
+		/*Creamos y abrimos el fichero donde solo se va a guardar los correos de los usuarios*/
+		FILE *pf1;
+		pf1 = fopen("Ficheros/Crear_Cuenta_Correo.txt", "a");
+			
+		if(pf1 == NULL)
 		{
 			printf("ERROR; no he encontrado el archivo");
 			return -1;
 		}
 		else
 		{
-			/*Creamos y abrimos el fichero donde solo se va a guardar los correos de los usuarios*/
-			FILE *pf1;
-			pf1 = fopen("Ficheros/Crear_Cuenta_Correo.txt", "a");
+			/*Abrimos el fichero(sólo lectura) donde almacenamos los correos de los usurios, aquí comprobaremos con el correo introducido
+			si el usuario ya tiene una cuenta creada con ese mismo correo, en caso afirmativo le advetimos que ya tiene una cuenta creada con ese correo*/
+			FILE *pf2;
 			
-			if(pf1 == NULL)
+			pf2 = fopen("Ficheros/Crear_Cuenta_Correo.txt","r");				
+			if(pf2 == NULL)
 			{
 				printf("ERROR; no he encontrado el archivo");
 				return -1;
 			}
 			else
 			{
-				/*Abrimos el fichero(sï¿½lo lectura) donde almacenamos los correos de los usurios, aquï¿½ comprobaremos con el correo introducido
-				si el usuario ya tiene una cuenta creada con ese mismo correo, en caso afirmativo le advetimos que ya tiene una cuenta creada con ese correo*/
-				FILE *pf2;
-				//pf2 = fopen("C:/Users/david/OneDrive/Documentos/tw_E10X_2022_2023-team_sangre/Trabajo/Ficheros/Crear_Cuenta_Correo.txt","r");
-				pf2 = fopen("Ficheros/Crear_Cuenta_Correo.txt","r");				
-				if(pf2 == NULL)
+				/*CORREO ELECTRONICO*/
+				int i = 0;
+				int j = 0;
+				int k = 0;
+				printf("\n\n-Introduce tu Correo Electronico: ");
+				scanf("%s", &CCusuario.CCPersona.correo);
+				
+				/*Creamos un dominio @gmail.com, es decir cualquier otra terminación no es válida*/
+				while(CCusuario.CCPersona.correo[i] != '\0')
 				{
-					printf("ERROR; no he encontrado el archivo");
-					return -1;
+					i++;
 				}
-				else
+				int longitud = i;
+				while(CCusuario.CCPersona.correo[j] != '\0')
 				{
-					/*CORREO ELECTRONICO*/
-					int i = 0;
-					int j = 0;
-					int k = 0;
-					printf("\n\n-Introduce tu Correo Electronico: ");
-					scanf("%s", &CCusuario.CCPersona.correo);
-					
-					/*Creamos un dominio @gmail.com, es decir cualquier otra terminaciï¿½n no es vï¿½lida*/
-					while(CCusuario.CCPersona.correo[i] != '\0')
+					if(CCusuario.CCPersona.correo[j] == '@')
 					{
-						i++;
-					}
-					int longitud = i;
-					while(CCusuario.CCPersona.correo[j] != '\0')
-					{
-						if(CCusuario.CCPersona.correo[j] == '@')
+						if((CCusuario.CCPersona.correo[j] != '@') || (CCusuario.CCPersona.correo[j+1] != 'g') || (CCusuario.CCPersona.correo[j+2] != 'm') || (CCusuario.CCPersona.correo[j+3] != 'a') || (CCusuario.CCPersona.correo[j+4] != 'i') || (CCusuario.CCPersona.correo[j+5] != 'l') || (CCusuario.CCPersona.correo[j+6] != '.') || (CCusuario.CCPersona.correo[j+7] != 'c') || (CCusuario.CCPersona.correo[j+8] != 'o') || (CCusuario.CCPersona.correo[j+9] != 'm'))
 						{
-							if((CCusuario.CCPersona.correo[j] != '@') || (CCusuario.CCPersona.correo[j+1] != 'g') || (CCusuario.CCPersona.correo[j+2] != 'm') || (CCusuario.CCPersona.correo[j+3] != 'a') || (CCusuario.CCPersona.correo[j+4] != 'i') || (CCusuario.CCPersona.correo[j+5] != 'l') || (CCusuario.CCPersona.correo[j+6] != '.') || (CCusuario.CCPersona.correo[j+7] != 'c') || (CCusuario.CCPersona.correo[j+8] != 'o') || (CCusuario.CCPersona.correo[j+9] != 'm'))
+							do
 							{
-								do
-								{
-									printf("ERROR; la cuenta de correo ha de ser tipo: @gmail.com");
-									printf("\n\n-Introduce tu Correo Electronico: ");
-									scanf("%s", &CCusuario.CCPersona.correo);
-								}
-								while((CCusuario.CCPersona.correo[j] != '@') || (CCusuario.CCPersona.correo[j+1] != 'g') || (CCusuario.CCPersona.correo[j+2] != 'm') || (CCusuario.CCPersona.correo[j+3] != 'a') || (CCusuario.CCPersona.correo[j+4] != 'i') || (CCusuario.CCPersona.correo[j+5] != 'l') || (CCusuario.CCPersona.correo[j+6] != '.') || (CCusuario.CCPersona.correo[j+7] != 'c') || (CCusuario.CCPersona.correo[j+8] != 'o') || (CCusuario.CCPersona.correo[j+9] != 'm'));
+								printf("ERROR; la cuenta de correo ha de ser tipo: @gmail.com");
+								printf("\n\n-Introduce tu Correo Electronico: ");
+								scanf("%s", &CCusuario.CCPersona.correo);
 							}
+							while((CCusuario.CCPersona.correo[j] != '@') || (CCusuario.CCPersona.correo[j+1] != 'g') || (CCusuario.CCPersona.correo[j+2] != 'm') || (CCusuario.CCPersona.correo[j+3] != 'a') || (CCusuario.CCPersona.correo[j+4] != 'i') || (CCusuario.CCPersona.correo[j+5] != 'l') || (CCusuario.CCPersona.correo[j+6] != '.') || (CCusuario.CCPersona.correo[j+7] != 'c') || (CCusuario.CCPersona.correo[j+8] != 'o') || (CCusuario.CCPersona.correo[j+9] != 'm'));
 						}
-						j++;
 					}
-					int longitud_correo = j;
+					j++;
+				}
+				int longitud_correo = j;
+				
+				char correo_pf2[500];
+				i = 0;
+				
+				/*Guardo el contenido del fichero*/
+				while(fscanf(pf2,"%c",&correo_pf2[i]) != EOF)
+				{		
+					i++;
+				}
+				int longitud_cadena = i;
+				
+				k = 0;
+				j = 0;
+				i = 0;
 					
-					char correo_pf2[500];
-					i = 0;
-					
-					while(fscanf(pf2,"%c",&correo_pf2[i]) != EOF)
-					{		
-						i++;
-					}
-					int longitud_cadena = i;
-					
-					k = 0;
-					j = 0;
-					i = 0;
-					
-					
-					for(i = 0 ; i < longitud_cadena ; i++)
+				/*Comienzo el bucle en el que compruebo si ya existe una cuenta con el correo introducido por el ususario*/	
+				for(i = 0 ; i < longitud_cadena ; i++)
+				{
+					if(CCusuario.CCPersona.correo[0] == correo_pf2[i])
 					{
-						if(CCusuario.CCPersona.correo[0] == correo_pf2[i])
-						{
-							j = i;
-							
-							for(k = 0 ; k < longitud_correo ; k++)
-							{
-								if(CCusuario.CCPersona.correo[k] != correo_pf2[j])
-								{
-									break;
-								}
-								else
-								{
-									j++;
-								}
-								
-							}
-						}
+						j = i;
 						
-						if(k == longitud_correo)
+						for(k = 0 ; k < longitud_correo ; k++)
 						{
-							printf("\nYa existe una cuenta con este correo\n");
-							IniciarSesion();
-							return 0;
+							if(CCusuario.CCPersona.correo[k] != correo_pf2[j])
+							{
+								break;
+							}
+							else
+							{
+								j++;
+							}
+								
 						}
 					}
-					
-				fclose(pf2);
-				}
-					
-				printf("Correo: %s\n", CCusuario.CCPersona.correo);
-				fprintf(pf,"%s;",CCusuario.CCPersona.correo);
-				fprintf(pf1,"%s\n", CCusuario.CCPersona.correo);
-			
-			
-			
-				/*CONTRASEï¿½A DEL CORREO*/
-			
-				/*Creamos y abrimos un fichero donde almacenaremos las contraseï¿½as de los usuarios, se utilizarï¿½ para el INICIO DE SESIï¿½N*/
-				FILE *pf3;
-				pf3 = fopen("Ficheros/Crear_Cuenta_contrasena.txt","a");
-			
-				if(pf3 == NULL)
-				{
-					printf("ERROR; no he encontrado el archivo");
-					return -1;
-				}
-				else
-				{
-					/*Abrimos el fichero(sï¿½lo lectura) donde almacenamos las contraseï¿½as de los usurios, aquï¿½ comprobaremos si la contraseï¿½a introducida
-					ya esta creada, en ese caso el usuario debera crear otra contraseï¿½a, lo hacemos para que no se creen contraseï¿½as iguales*/
-					/*FILE *pf4;
-					pf4 = fopen("C:/Users/david/OneDrive/Documentos/tw_E10X_2022_2023-team_sangre/Trabajo/Ficheros/Crear_Cuenta_contrasena.txt","r");
-					
-					if(pf4 == NULL)
+					/*Si confirmamos que el correo ya existe, pues enviamos al usuario a iniciar sesión*/	
+					if(k == longitud_correo)
 					{
-						printf("ERROR; no he encontrado el archivo");
+						printf("\nYa existe una cuenta con este correo\n");
+						IniciarSesion();
+						return 0;
+					}
+				}
+					
+			fclose(pf2);
+			}
+					
+			printf("Correo: %s\n", CCusuario.CCPersona.correo);
+			fprintf(pf,"%s;",CCusuario.CCPersona.correo);
+			fprintf(pf1,"%s\n", CCusuario.CCPersona.correo);
+			
+			
+			/*CONTRASEï¿½A DEL CORREO*/
+			
+			/*Creamos y abrimos un fichero donde almacenaremos las contraseñas y correos de los usuarios, se utilizará para el INICIO DE SESIÓN*/
+			FILE *pf3;
+			pf3 = fopen("Ficheros/Crear_Cuenta_contrasena.txt","a");
+			
+			if(pf3 == NULL)
+			{
+				printf("ERROR; no he encontrado el archivo");
+				return -1;
+			}
+			else
+			{
+				printf("\n-Introduce una contrasena\n(Solamente puede contener letras y numeros): ");
+				scanf("%s", &CCusuario.CCPersona.contrasena);
+			
+				int i = 0;
+				int j = 0;
+				int k = 0;
+				while(CCusuario.CCPersona.contrasena[i] != '\0')
+				{
+					i++;
+				}
+				int longitud1 = i;
+			
+				while(CCusuario.CCPersona.contrasena[j] != '\0')
+				{
+					if(((CCusuario.CCPersona.contrasena[j] < 48) || (CCusuario.CCPersona.contrasena[j] > 57)) && ((CCusuario.CCPersona.contrasena[j] < 65) || (CCusuario.CCPersona.contrasena[j] > 90)) && ((CCusuario.CCPersona.contrasena[j] < 97) || (CCusuario.CCPersona.contrasena[j] > 122)))
+					{
+						do
+						{
+							printf("ERROR; la contrasena solo puede tener letras y numeros");
+							printf("\n\n-Introduce una contrasena\n(Solamente puede contener letras y numeros): ");
+							scanf("%s", CCusuario.CCPersona.contrasena);
+						}
+						while(((CCusuario.CCPersona.contrasena[j] < 48) || (CCusuario.CCPersona.contrasena[j] > 57)) && ((CCusuario.CCPersona.contrasena[j] < 65) || (CCusuario.CCPersona.contrasena[j] > 90)) && ((CCusuario.CCPersona.contrasena[j] < 97) || (CCusuario.CCPersona.contrasena[j] > 122)));
+			
+					}	
+					j++;
+				}
+							
+				/*Simplemente por hacerlo algo mï¿½s real imprimimos (*) en lugar de la contraseï¿½a*/
+				printf("Contrasena: ");
+				for(k = 0 ; k < longitud1 ; k++)
+				{
+					printf("*");
+				}
+			
+				fprintf(pf,"%s;", CCusuario.CCPersona.contrasena);
+				fprintf(pf3,"%s;%s\n", CCusuario.CCPersona.correo, CCusuario.CCPersona.contrasena);
+				fclose(pf3);	
+			}
+		fclose(pf1);	
+		}
+			
+		/*NOMBRE APELLIDO1 APELLIDO2*/
+			
+		/*Pedimos al usuario el primer apellido, en el caso de poner cualquier otra cosa que no sea una letra saltarï¿½ ERROR*/
+		printf("\n\n-Primer Apellido: ");
+		scanf("%s", &CCusuario.usuario.primer_apellido);
+		
+		i = 0;
+		while(CCusuario.usuario.primer_apellido[i] != '\0')
+		{
+			if(((CCusuario.usuario.primer_apellido[i] < 65) || (CCusuario.usuario.primer_apellido[i] > 90)) && ((CCusuario.usuario.primer_apellido[i] < 97) || (CCusuario.usuario.primer_apellido[i] > 122)))
+			{
+				do
+				{
+					printf("ERROR; un apellido no puede tener otra cosa que no sea letras");
+					printf("\n\n-Primer Apellido: ");
+					scanf("%s", &CCusuario.usuario.primer_apellido);
+				}
+				while(((CCusuario.usuario.primer_apellido[i] < 65) || (CCusuario.usuario.primer_apellido[i] > 90)) && ((CCusuario.usuario.primer_apellido[i] < 97) || (CCusuario.usuario.primer_apellido[i] > 122)));
+			}
+		i++;
+		}
+			
+		/*Pedimos al usuario el segundo apellido, en el caso de poner cualquier otra cosa que no sea una letra saltarï¿½ ERROR*/
+		printf("-Segundo Apellido: ");
+		scanf("%s", CCusuario.usuario.segundo_apellido);
+			
+		i = 0;
+		while(CCusuario.usuario.segundo_apellido[i] != '\0')
+		{
+			if(((CCusuario.usuario.segundo_apellido[i] < 65) || (CCusuario.usuario.segundo_apellido[i] > 90)) && ((CCusuario.usuario.segundo_apellido[i] < 97) || (CCusuario.usuario.segundo_apellido[i] > 122)))
+			{
+				do
+				{
+					printf("ERROR; un apellido no puede tener otra cosa que no sea letras");
+					printf("\n\n-Segundo Apellido: ");
+					scanf("%s", CCusuario.usuario.segundo_apellido);
+				}
+				while(((CCusuario.usuario.segundo_apellido[i] < 65) || (CCusuario.usuario.segundo_apellido[i] > 90)) && ((CCusuario.usuario.segundo_apellido[i] < 97) || (CCusuario.usuario.segundo_apellido[i] > 122)));
+			}
+			i++;
+		}
+		
+		/*Pedimos al usuario el nombre, en el caso de poner cualquier otra cosa que no sea un aletra saltarï¿½ ERROR*/
+		printf("-Nombre: ");
+		scanf("%s", CCusuario.usuario.nombre);
+		
+		i = 0;
+		while(CCusuario.usuario.nombre[i] != '\0')
+		{
+			if(((CCusuario.usuario.nombre[i] < 65) || (CCusuario.usuario.nombre[i] > 90)) && ((CCusuario.usuario.nombre[i] < 97) || (CCusuario.usuario.nombre[i] > 122)))
+			{
+				do
+				{
+					printf("ERROR; un nombre no otra cosa que no sea letras");
+					printf("\n\n- Nombre: ");
+					scanf("%s", CCusuario.usuario.nombre);
+				}
+				while(((CCusuario.usuario.nombre[i] < 65) || (CCusuario.usuario.nombre[i] > 90)) && ((CCusuario.usuario.nombre[i] < 97) || (CCusuario.usuario.nombre[i] > 122)));
+			}
+			i++;
+		}
+		
+		cambio_mayusculas(CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
+		printf("\nNombre Completo: %s %s %s", CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
+		fprintf(pf,"%s%s%s;", CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
+		
+		/*FECHA DE NACIMIENTO*/
+		printf("\n\n-Fecha de nacimiento");
+		
+		/*Pedimos que Introduzca el Aï¿½o*/
+		do
+		{
+			printf("\nAno: ");
+			scanf("%i", &CCusuario.fecha.ano);
+			
+			if((CCusuario.fecha.ano < 1933) || (CCusuario.fecha.ano > 2023))
+			{
+				printf("ERROR; el ano introducido no es valido");
+			}
+		}
+		while((CCusuario.fecha.ano < 1923) || (CCusuario.fecha.ano > 2023));
+			
+		/*Comprobamos si el aï¿½o de su nacimiento es Bisiesto*/
+		/*Cubrimos todos los casos en caso de aï¿½os bisiestos o no, es decir, solo se permiten fechas reales*/
+		
+		if((CCusuario.fecha.ano % 4 == 0) && (CCusuario.fecha.ano % 100 != 0) || (CCusuario.fecha.ano % 400 == 0))/*Si el aï¿½o es bisiesto*/
+		{
+			/*Pedimos que Introduzca el Mes*/
+			do
+			{
+				printf("Mes: ");
+				scanf("%i", &CCusuario.fecha.mes);
+			
+				if((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12))
+				{
+					printf("ERROR; el mes introducido no es valido\n");
+				}
+			
+			}
+			while((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12));
+			
+			/*Pedimos que Introduzca el dia*/	
+			switch (CCusuario.fecha.mes)
+			{
+				case 1:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;	
+					}
+				case 2:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 29))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 29));
+						break;
+					}
+				case 3:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 4:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 5:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 6:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+							
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 7:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 8:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+					
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 9:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 10:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 11:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 12:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+							
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				default:
+					{
+						printf("Se ha producido un error");
 						return -1;
 					}
-					else
-					{*/
-						printf("\n-Introduce una contrasena\n(Solamente puede contener letras y numeros): ");
-						scanf("%s", &CCusuario.CCPersona.contrasena);
-			
-						int i = 0;
-						int j = 0;
-						int k = 0;
-						while(CCusuario.CCPersona.contrasena[i] != '\0')
-						{
-							i++;
-						}
-						int longitud1 = i;
-			
-						while(CCusuario.CCPersona.contrasena[j] != '\0')
-						{
-							if(((CCusuario.CCPersona.contrasena[j] < 48) || (CCusuario.CCPersona.contrasena[j] > 57)) && ((CCusuario.CCPersona.contrasena[j] < 65) || (CCusuario.CCPersona.contrasena[j] > 90)) && ((CCusuario.CCPersona.contrasena[j] < 97) || (CCusuario.CCPersona.contrasena[j] > 122)))
-							{
-								do
-								{
-									printf("ERROR; la contrasena solo puede tener letras y numeros");
-									printf("\n\n-Introduce una contrasena\n(Solamente puede contener letras y numeros): ");
-									scanf("%s", CCusuario.CCPersona.contrasena);
-								}
-								while(((CCusuario.CCPersona.contrasena[j] < 48) || (CCusuario.CCPersona.contrasena[j] > 57)) && ((CCusuario.CCPersona.contrasena[j] < 65) || (CCusuario.CCPersona.contrasena[j] > 90)) && ((CCusuario.CCPersona.contrasena[j] < 97) || (CCusuario.CCPersona.contrasena[j] > 122)));
-					
-							}	
-							j++;
-						}
-						
-						/*Medimos la longitud de la contraseï¿½a introducida por el usuario
-						i = 0;
-						while(CCusuario.CCPersona.contrasena[i] != '\0')
-						{
-							i++;
-						}
-						int longitud2 = i;
-						
-						/*Medimos la longitud del fichero del cual leeremos todas las contraseï¿½as
-						char contrasena_pf4[1000];
-						i = 0;
-						
-						while(fscanf(pf4,"%c", &contrasena_pf4[i]) != EOF)
-						{
-							i++;
-						}
-						int longitud_cadena1 = i;
-						
-						/*Comenzamos el bucle para comprobar si esta contraseï¿½a ya existe
-						k = 0;
-						j = 0;
-						i = 0;
-					
-						for(i = 0 ; i < longitud_cadena1 ; i++)
-						{
-							if(CCusuario.CCPersona.contrasena[0] == contrasena_pf4[i])
-							{
-								j = i;
-							
-								for(k = 0 ; k < longitud2 ; k++)
-								{
-									if(CCusuario.CCPersona.contrasena[k] != contrasena_pf4[j])
-									{
-										break;
-									}
-									else
-									{
-										j++;
-									}
-								
-								}
-							}
-						
-							if(k == longitud2)
-							{
-								printf("\nYa existe esta contrasena, por favor crea otra\n");
-								
-								return 0;
-							}
-						}*/
-						
-						/*Simplemente por hacerlo algo mï¿½s real imprimimos (*) en lugar de la contraseï¿½a*/
-						printf("Contrasena: ");
-						for(k = 0 ; k < longitud1 ; k++)
-						{
-							printf("*");
-						}
-			
-						fprintf(pf,"%s;", CCusuario.CCPersona.contrasena);
-						fprintf(pf3,"%s;%s\n", CCusuario.CCPersona.correo, CCusuario.CCPersona.contrasena);
-						fclose(pf3);
-				//	}
-				//fclose(pf4);	
-				}
-			fclose(pf1);	
 			}
-			
-			/*NOMBRE APELLIDO1 APELLIDO2*/
-			
-			/*Pedimos al usuario el primer apellido, en el caso de poner cualquier otra cosa que no sea una letra saltarï¿½ ERROR*/
-			printf("\n\n-Primer Apellido: ");
-			scanf("%s", &CCusuario.usuario.primer_apellido);
-			
-			i = 0;
-			while(CCusuario.usuario.primer_apellido[i] != '\0')
-			{
-				if(((CCusuario.usuario.primer_apellido[i] < 65) || (CCusuario.usuario.primer_apellido[i] > 90)) && ((CCusuario.usuario.primer_apellido[i] < 97) || (CCusuario.usuario.primer_apellido[i] > 122)))
-				{
-					do
-					{
-						printf("ERROR; un apellido no puede tener otra cosa que no sea letras");
-						printf("\n\n-Primer Apellido: ");
-						scanf("%s", &CCusuario.usuario.primer_apellido);
-					}
-					while(((CCusuario.usuario.primer_apellido[i] < 65) || (CCusuario.usuario.primer_apellido[i] > 90)) && ((CCusuario.usuario.primer_apellido[i] < 97) || (CCusuario.usuario.primer_apellido[i] > 122)));
-				}
-				i++;
-			}
-			
-			/*Pedimos al usuario el segundo apellido, en el caso de poner cualquier otra cosa que no sea una letra saltarï¿½ ERROR*/
-			printf("-Segundo Apellido: ");
-			scanf("%s", CCusuario.usuario.segundo_apellido);
-			
-			i = 0;
-			while(CCusuario.usuario.segundo_apellido[i] != '\0')
-			{
-				if(((CCusuario.usuario.segundo_apellido[i] < 65) || (CCusuario.usuario.segundo_apellido[i] > 90)) && ((CCusuario.usuario.segundo_apellido[i] < 97) || (CCusuario.usuario.segundo_apellido[i] > 122)))
-				{
-					do
-					{
-						printf("ERROR; un apellido no puede tener otra cosa que no sea letras");
-						printf("\n\n-Segundo Apellido: ");
-						scanf("%s", CCusuario.usuario.segundo_apellido);
-					}
-					while(((CCusuario.usuario.segundo_apellido[i] < 65) || (CCusuario.usuario.segundo_apellido[i] > 90)) && ((CCusuario.usuario.segundo_apellido[i] < 97) || (CCusuario.usuario.segundo_apellido[i] > 122)));
-				}
-				i++;
-			}
-			
-			/*Pedimos al usuario el nombre, en el caso de poner cualquier otra cosa que no sea un aletra saltarï¿½ ERROR*/
-			printf("-Nombre: ");
-			scanf("%s", CCusuario.usuario.nombre);
-			
-			i = 0;
-			while(CCusuario.usuario.nombre[i] != '\0')
-			{
-				if(((CCusuario.usuario.nombre[i] < 65) || (CCusuario.usuario.nombre[i] > 90)) && ((CCusuario.usuario.nombre[i] < 97) || (CCusuario.usuario.nombre[i] > 122)))
-				{
-					do
-					{
-						printf("ERROR; un nombre no otra cosa que no sea letras");
-						printf("\n\n- Nombre: ");
-						scanf("%s", CCusuario.usuario.nombre);
-					}
-					while(((CCusuario.usuario.nombre[i] < 65) || (CCusuario.usuario.nombre[i] > 90)) && ((CCusuario.usuario.nombre[i] < 97) || (CCusuario.usuario.nombre[i] > 122)));
-				}
-				i++;
-			}
-			
-			cambio_mayusculas(CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
-			printf("\nNombre Completo: %s %s %s", CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
-			fprintf(pf,"%s%s%s;", CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
-			
-			/*FECHA DE NACIMIENTO*/
-			printf("\n\n-Fecha de nacimiento");
-			
-			/*Pedimos que Introduzca el Aï¿½o*/
+		}
+		else /*Si el aï¿½o no es Bisiesto*/
+		{
+			/*Pedimos que Introduzca el Mes*/
 			do
 			{
-				printf("\nAno: ");
-				scanf("%i", &CCusuario.fecha.ano);
-				
-				if((CCusuario.fecha.ano < 1933) || (CCusuario.fecha.ano > 2023))
+				printf("Mes: ");
+				scanf("%i", &CCusuario.fecha.mes);
+			
+				if((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12))
 				{
-					printf("ERROR; el ano introducido no es valido");
+					printf("ERROR; el mes introducido no es valido\n");
 				}
+			
 			}
-			while((CCusuario.fecha.ano < 1923) || (CCusuario.fecha.ano > 2023));
-			
-			/*Comprobamos si el aï¿½o de su nacimiento es Bisiesto*/
-			/*Cubrimos todos los casos en caso de aï¿½os bisiestos o no, es decir, solo se permiten fechas reales*/
-			
-			if((CCusuario.fecha.ano % 4 == 0) && (CCusuario.fecha.ano % 100 != 0) || (CCusuario.fecha.ano % 400 == 0))/*Si el aï¿½o es bisiesto*/
+			while((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12));
+		
+			/*Pedimos que Introduzca el dia*/	
+			switch (CCusuario.fecha.mes)
 			{
-				/*Pedimos que Introduzca el Mes*/
-				do
-				{
-					printf("Mes: ");
-					scanf("%i", &CCusuario.fecha.mes);
-				
-					if((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12))
+				case 1:
 					{
-						printf("ERROR; el mes introducido no es valido\n");
-					}
-				
-				}
-				while((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12));
-			
-				/*Pedimos que Introduzca el dia*/	
-				switch (CCusuario.fecha.mes)
-				{
-					case 1:
+						do
 						{
-							do
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
 							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;	
-						}
-					case 2:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 29))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 29));
-							break;
-						}
-					case 3:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
 								printf("ERROR; el dia introducido no es valido\n");
-								}
 							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
 						}
-					case 4:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
-						}
-					case 5:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					case 6:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-								
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
-						}
-					case 7:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					case 8:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					case 9:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
-						}
-					case 10:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					case 11:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
-						}
-					case 12:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					default:
-						{
-							printf("Se ha producido un error");
-							return -1;
-						}
-				}
-			}
-			else /*Si el aï¿½o no es Bisiesto*/
-			{
-				/*Pedimos que Introduzca el Mes*/
-				do
-				{
-					printf("Mes: ");
-					scanf("%i", &CCusuario.fecha.mes);
-				
-					if((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12))
-					{
-						printf("ERROR; el mes introducido no es valido\n");
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;	
 					}
+				case 2:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
 				
-				}
-				while((CCusuario.fecha.mes < 1) || (CCusuario.fecha.mes > 12));
-			
-				/*Pedimos que Introduzca el dia*/	
-				switch (CCusuario.fecha.mes)
-				{
-					case 1:
-						{
-							do
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 28))
 							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;	
-						}
-					case 2:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 28))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 28));
-							break;
-						}
-					case 3:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
 								printf("ERROR; el dia introducido no es valido\n");
-								}
 							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
 						}
-					case 4:
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 28));
+						break;
+					}
+				case 3:
+					{
+						do
 						{
-							do
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
 							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 4:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 5:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 6:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
 							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
-						}
-					case 5:
-						{
-							do
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
 							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
+								printf("ERROR; el dia introducido no es valido\n");
 							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
 						}
-					case 6:
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 7:
+					{
+						do
 						{
-							do
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
 							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-								
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
+								printf("ERROR; el dia introducido no es valido\n");
 							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
 						}
-					case 7:
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 8:
+					{
+						do
 						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					case 8:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					case 9:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
-						}
-					case 10:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					case 11:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
-							break;
-						}
-					case 12:
-						{
-							do
-							{
-								printf("Dia: ");
-								scanf("%i", &CCusuario.fecha.dia);
-							
-								if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
-								{
-									printf("ERROR; el dia introducido no es valido\n");
-								}
-							}
-							while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
-							break;
-						}
-					default:
-						{
-							printf("Se ha producido un error");
-							return -1;
-						}
-				}
-			
-			}
-			printf("\nNacimiento: %i/%i/%i",CCusuario.fecha.dia,CCusuario.fecha.mes,CCusuario.fecha.ano);
-			fprintf(pf,"%i/%i/%i;",CCusuario.fecha.dia,CCusuario.fecha.mes,CCusuario.fecha.ano);
-			
-			
-			/*DNI*/
-			/*Exigimos que tenga el tamaï¿½o real de un numero de DNI*/
-			do
-			{
-				
-				printf("\n\n-Introduce la parte numerica de tu DNI");
-				printf("\nNumero: ");
-				scanf("%i", &CCusuario.persona.parte_numerica);
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
 					
-				/*if((CCusuario.persona.parte_numerica < 48) || (CCusuario.persona.parte_numerica > 57))
-				{
-					printf("ERROR; introduzca solo la parte numerica");
-				
-				}*/
-				
-
-				if((CCusuario.persona.parte_numerica < 1) || (CCusuario.persona.parte_numerica > 99999999))
-				{
-					printf("ERROR; un numero de DNI no tiene esas cifras");
-				}
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 9:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 10:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+					
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				case 11:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 30));
+						break;
+					}
+				case 12:
+					{
+						do
+						{
+							printf("Dia: ");
+							scanf("%i", &CCusuario.fecha.dia);
+						
+							if((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31))
+							{
+								printf("ERROR; el dia introducido no es valido\n");
+							}
+						}
+						while((CCusuario.fecha.dia < 1) || (CCusuario.fecha.dia > 31));
+						break;
+					}
+				default:
+					{
+						printf("Se ha producido un error");
+						return -1;
+					}
 			}
-			while((CCusuario.persona.parte_numerica < 1) || (CCusuario.persona.parte_numerica > 99999999));
 			
-			do
+		}
+		printf("\nNacimiento: %i/%i/%i",CCusuario.fecha.dia,CCusuario.fecha.mes,CCusuario.fecha.ano);
+		fprintf(pf,"%i/%i/%i;",CCusuario.fecha.dia,CCusuario.fecha.mes,CCusuario.fecha.ano);
+			
+			
+		/*DNI*/
+		/*Exigimos que tenga el tamaï¿½o real de un numero de DNI*/
+		do
+		{
+			printf("\n\n-Introduce la parte numerica de tu DNI");
+			printf("\nNumero: ");
+			scanf("%i", &CCusuario.persona.parte_numerica);
+				
+			if((CCusuario.persona.parte_numerica < 1) || (CCusuario.persona.parte_numerica > 99999999))
 			{
-				printf("-Introduce la letra de tu DNI");
-				printf("\nLetra: ");
-				scanf(" %c", &CCusuario.persona.letra);
-				
-				if(((CCusuario.persona.letra < 65) || (CCusuario.persona.letra > 90)) && ((CCusuario.persona.letra < 97) || (CCusuario.persona.letra > 122)))
-				{
-					printf("\n\nERROR; introduzca solo la letra");
-				}
+				printf("ERROR; un numero de DNI no tiene esas cifras");
 			}
-			while(((CCusuario.persona.letra < 65) || (CCusuario.persona.letra > 90)) && ((CCusuario.persona.letra < 97) || (CCusuario.persona.letra > 122)));
-			
-			/*En el caso de introducir una letra minuscula, la cambiamos por mayuscula*/
-			if((CCusuario.persona.letra < 65) || (CCusuario.persona.letra > 90))
+		}
+		while((CCusuario.persona.parte_numerica < 1) || (CCusuario.persona.parte_numerica > 99999999));
+		
+		do
+		{
+			printf("-Introduce la letra de tu DNI");
+			printf("\nLetra: ");
+			scanf(" %c", &CCusuario.persona.letra);
+		
+			if(((CCusuario.persona.letra < 65) || (CCusuario.persona.letra > 90)) && ((CCusuario.persona.letra < 97) || (CCusuario.persona.letra > 122)))
 			{
-				CCusuario.persona.letra = CCusuario.persona.letra - 32;
+				printf("\n\nERROR; introduzca solo la letra");
 			}
-			
-			printf("\nDNI: %i %c", CCusuario.persona.parte_numerica, CCusuario.persona.letra);
-			
-			fprintf(pf,"%i %c;",CCusuario.persona.parte_numerica, CCusuario.persona.letra);
-			
-			/*PROVINCIA Y Cï¿½DIGO POSTAL*/
+		}
+		while(((CCusuario.persona.letra < 65) || (CCusuario.persona.letra > 90)) && ((CCusuario.persona.letra < 97) || (CCusuario.persona.letra > 122)));
+		
+		/*En el caso de introducir una letra minuscula, la cambiamos por mayuscula*/
+		if((CCusuario.persona.letra < 65) || (CCusuario.persona.letra > 90))
+		{
+			CCusuario.persona.letra = CCusuario.persona.letra - 32;
+		}
+		
+		printf("\nDNI: %i %c", CCusuario.persona.parte_numerica, CCusuario.persona.letra);
+		
+		fprintf(pf,"%i %c;",CCusuario.persona.parte_numerica, CCusuario.persona.letra);
+		
+		/*PROVINCIA Y Cï¿½DIGO POSTAL*/
 			
 		do
+		{
+			printf("\n\n-Introduzca su Codigo Postal");
+			printf("\nCodigo Postal: ");
+			scanf("%5s", &CCusuario.cp);
+			
+			if(((CCusuario.cp[0] < 48) || (CCusuario.cp[0] > 57)) && ((CCusuario.cp[1] < 48) || (CCusuario.cp[1] > 57)) && ((CCusuario.cp[2] < 48) || (CCusuario.cp[2] > 57)) && ((CCusuario.cp[3] < 48) || (CCusuario.cp[3] > 57)) && ((CCusuario.cp[4] < 48) || (CCusuario.cp[4] > 57)))
 			{
-				printf("\n\n-Introduzca su Codigo Postal");
-				printf("\nCodigo Postal: ");
-				scanf("%5s", &CCusuario.cp);
-				
-				if(((CCusuario.cp[0] < 48) || (CCusuario.cp[0] > 57)) && ((CCusuario.cp[1] < 48) || (CCusuario.cp[1] > 57)) && ((CCusuario.cp[2] < 48) || (CCusuario.cp[2] > 57)) && ((CCusuario.cp[3] < 48) || (CCusuario.cp[3] > 57)) && ((CCusuario.cp[4] < 48) || (CCusuario.cp[4] > 57)))
-				{
-					printf("ERROR; el codigo postal no existe");
-				}
-			}	
-			while(((CCusuario.cp[0] < 48) || (CCusuario.cp[0] > 57)) && ((CCusuario.cp[1] < 48) || (CCusuario.cp[1] > 57)) && ((CCusuario.cp[2] < 48) || (CCusuario.cp[2] > 57)) && ((CCusuario.cp[3] < 48) || (CCusuario.cp[3] > 57)) && ((CCusuario.cp[4] < 48) || (CCusuario.cp[4] > 57)));
-			
-			
-			printf("\nCodigo Postal: %s", CCusuario.cp);
-			fprintf(pf,"%s;",CCusuario.cp);
-			
-			/*Declaramos las variables de seleccion que utilizaremos a continuaciï¿½n*/
-			int selec1, selec2, selec3, selec4, selec5, selec6, selec7, selec8, selec9;
-			int selec10, selec11, selec12, selec13, selec14, selec15, selec16, selec17, selec18, selec19;
-			int selec20, selec21, selec22, selec23, selec24, selec25, selec26, selec27, selec28, selec29;
-			int selec30, selec31, selec32, selec33, selec34, selec35, selec36, selec37, selec38, selec39;
-			int selec40, selec41, selec42, selec43, selec44, selec45, selec46, selec47, selec48, selec49;
-			int selec50, selec51, selec52;
-			
-			if(CCusuario.cp[0] == '0')
+				printf("ERROR; el codigo postal no existe");
+			}
+		}	
+		while(((CCusuario.cp[0] < 48) || (CCusuario.cp[0] > 57)) && ((CCusuario.cp[1] < 48) || (CCusuario.cp[1] > 57)) && ((CCusuario.cp[2] < 48) || (CCusuario.cp[2] > 57)) && ((CCusuario.cp[3] < 48) || (CCusuario.cp[3] > 57)) && ((CCusuario.cp[4] < 48) || (CCusuario.cp[4] > 57)));
+		
+		
+		printf("\nCodigo Postal: %s", CCusuario.cp);
+		fprintf(pf,"%s;",CCusuario.cp);
+		
+		/*Declaramos las variables de seleccion que utilizaremos a continuaciï¿½n*/
+		int selec1, selec2, selec3, selec4, selec5, selec6, selec7, selec8, selec9;
+		int selec10, selec11, selec12, selec13, selec14, selec15, selec16, selec17, selec18, selec19;
+		int selec20, selec21, selec22, selec23, selec24, selec25, selec26, selec27, selec28, selec29;
+		int selec30, selec31, selec32, selec33, selec34, selec35, selec36, selec37, selec38, selec39;
+		int selec40, selec41, selec42, selec43, selec44, selec45, selec46, selec47, selec48, selec49;
+		int selec50, selec51, selec52;
+		
+		if(CCusuario.cp[0] == '0')
 			{	
 				if(CCusuario.cp[1] == '1')
 				{
