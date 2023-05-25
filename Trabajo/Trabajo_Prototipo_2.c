@@ -113,7 +113,9 @@ int menu();
 /*INFORMACION*/
 int informacion();
 
-
+/*Funcion Comparacion*/
+void f_comparacion ();
+void f_comparacion_menu (char *eleccion_comparacion);
 /*Funcion Eleccion del Mes en la Parte de Comparacion Mensual*/ 
 int f_comparacion_eleccion_mes (int eleccion_mes_int);
 /*Funcion para Abrir y Cerrar los Ficheros donde se encuentran los datos de cada mes*/
@@ -2784,7 +2786,7 @@ int menu()
 		printf("\n3.-Mis Datos");
 		printf("\n4.-Informacion");
 		printf("\n5.-Salir");
-		printf("\nSeleccion(1 | 2 | 3 | 4 | 5): ");
+		printf("\nSeleccion( 1 | 2 | 3 | 4 | 5 ): ");
 		scanf("%i", &seleccion);
 		
 		if((seleccion < 1) || (seleccion > 5))
@@ -2798,179 +2800,8 @@ int menu()
 	{
 		case 1:
 			{
-				printf("\n\nCOMPARACIONES");
-				
-				char eleccion_comparacion;
-				do // Seleccion de la Funcion a Realizar //
-				{
-					printf("Seleccione que datos desea comparar \n");
-					printf("a.-Parte de Alvaro \n");
-					printf("b.-Comparacion de Datos Mensuales \n");
-					printf("Seleccione la opcion a realizar introduciendo (a | b | c). \n");
-					scanf("%c",&eleccion_comparacion);
-					printf("\n");
-				} while ((eleccion_comparacion!='a')&&(eleccion_comparacion!='b'));
-					
-				switch (eleccion_comparacion) // Primer Switch //
-				{
-					case 'a': // Parte de Alvaro//
-					{
-						break;
-					}
-						
-					case 'b': // Datos Mensuales //
-					{
-						int anio_mes_1;
-						do // Seleccion del Anio del Primer Mes //
-						{
-							printf("Seleccione en que anio se encuentra el mes que quiere comparar: \n");
-							printf("2020 \n");
-							printf("2021 \n");
-							printf("2022 \n");
-							printf("2023 \n");
-							printf("Indique el anio seleccionado introduciendolo por el teclado (2020 | 2021 | 2022 | 2023) \n");
-							scanf("%i",&anio_mes_1);
-							printf("\n");
-						} while ((anio_mes_1 < 2020)||(anio_mes_1 > 2023));
-								
-						int mes_1 = f_comparacion_eleccion_mes (anio_mes_1);
-						int anio_mes_2;
-						int mes_2;
-						do
-						{
-							do // Seleccion del AÃ±o del Segundo Mes //
-							{
-								printf("Seleccione en que anio se encuentra el otro mes que quiere comparar: \n");
-								printf("No seleccione el mismo mes que ha seleccionado anteriormente. \n");
-								printf("2020 \n");
-								printf("2021 \n");
-								printf("2022 \n");
-								printf("2023 \n");
-								printf("Indique el anio seleccionado introduciendolo por el teclado (2020 | 2021 | 2022 | 2023) \n");
-								scanf("%i",&anio_mes_2);
-								printf("\n");
-							} while ((anio_mes_2 < 2020)||(anio_mes_2 > 2023));
-									
-							mes_2 = f_comparacion_eleccion_mes (anio_mes_2);
-										
-						} while ((anio_mes_1 == anio_mes_2) && (mes_1 == mes_2));
-										
-						int hidraulica_0, hidraulica_1, eolica_0, eolica_1, solar_fotovoltaica_0, solar_fotovoltaica_1, solar_termica_0, solar_termica_1, otras_renovables_0, otras_renovables_1, residuos_renovables_0, residuos_renovables_1, Generacion_Renovable_0, Generacion_Renovable_1, turbinacion_bombeo_0, turbinacion_bombeo_1, nuclear_0, nuclear_1, ciclo_combinado_0, ciclo_combinado_1, carbon_0, carbon_1, cogeneracion_0, cogeneracion_1, residuos_no_renovables_0, residuos_no_renovables_1, Generacion_No_Renovable_0, Generacion_No_Renovable_1, consumos_en_bombeo_0, consumos_en_bombeo_1, enlace_peninsula_baleares_0, enlace_peninsula_baleares_1, saldo_intercambios_internacionales_0, saldo_intercambios_internacionales_1, Demanda_0, Demanda_1;
-										
-						f_comparacion_ficheros (anio_mes_1,mes_1, &hidraulica_0, &hidraulica_1, &eolica_0, &eolica_1, &solar_fotovoltaica_0, &solar_fotovoltaica_1, &solar_termica_0, &solar_termica_1, &otras_renovables_0, &otras_renovables_1, &residuos_renovables_0, &residuos_renovables_1, &Generacion_Renovable_0, &Generacion_Renovable_1, &turbinacion_bombeo_0, &turbinacion_bombeo_1, &nuclear_0, &nuclear_1, &ciclo_combinado_0, &ciclo_combinado_1, &carbon_0, &carbon_1, &cogeneracion_0, &cogeneracion_1, &residuos_no_renovables_0, &residuos_no_renovables_1, &Generacion_No_Renovable_0, &Generacion_No_Renovable_1, &consumos_en_bombeo_0, &consumos_en_bombeo_1, &enlace_peninsula_baleares_0, &enlace_peninsula_baleares_1, &saldo_intercambios_internacionales_0, &saldo_intercambios_internacionales_1, &Demanda_0, &Demanda_1);
-										
-						int datos_mes_1_hidraulica_1 = hidraulica_0;
-						int datos_mes_1_eolica_1 = eolica_0;
-						int datos_mes_1_solar_fotovoltaica_1 = solar_fotovoltaica_0;
-						int datos_mes_1_solar_termica_1 = solar_termica_0;
-						int datos_mes_1_otras_renovables_1 = otras_renovables_0;
-						int datos_mes_1_residuos_renovables_1 = residuos_renovables_0;
-						int datos_mes_1_Generacion_Renovable_1 = Generacion_Renovable_0;
-						int datos_mes_1_turbinacion_bombeo_1 = turbinacion_bombeo_0;
-						int datos_mes_1_nuclear_1 = nuclear_0;
-						int datos_mes_1_ciclo_combinado_1 = ciclo_combinado_0;
-						int datos_mes_1_carbon_1 = carbon_0;
-						int datos_mes_1_cogeneracion_1 = cogeneracion_0;
-						int datos_mes_1_residuos_no_renovables_1 = residuos_no_renovables_0;
-						int datos_mes_1_Generacion_No_Renovable_1 = Generacion_No_Renovable_0;
-						int datos_mes_1_consumos_en_bombeo_1 = consumos_en_bombeo_0;
-						int datos_mes_1_enlace_peninsula_baleares_1 = enlace_peninsula_baleares_0;
-						int datos_mes_1_saldo_intercambios_internacionales_1 = saldo_intercambios_internacionales_0;
-						int datos_mes_1_Demanda_1 = Demanda_0;
-										
-						int datos_mes_1_hidraulica_2 = hidraulica_1;
-						int datos_mes_1_eolica_2 = eolica_1;
-						int datos_mes_1_solar_fotovoltaica_2 = solar_fotovoltaica_1;
-						int datos_mes_1_solar_termica_2 = solar_termica_1;
-						int datos_mes_1_otras_renovables_2 = otras_renovables_1;
-						int datos_mes_1_residuos_renovables_2 = residuos_renovables_1;
-						int datos_mes_1_Generacion_Renovable_2 = Generacion_Renovable_1;
-						int datos_mes_1_turbinacion_bombeo_2 = turbinacion_bombeo_1;
-						int datos_mes_1_nuclear_2 = nuclear_1;
-						int datos_mes_1_ciclo_combinado_2 = ciclo_combinado_1;
-						int datos_mes_1_carbon_2 = carbon_1;
-						int datos_mes_1_cogeneracion_2 = cogeneracion_1;
-						int datos_mes_1_residuos_no_renovables_2 = residuos_no_renovables_1;
-						int datos_mes_1_Generacion_No_Renovable_2 = Generacion_No_Renovable_1;
-						int datos_mes_1_consumos_en_bombeo_2 = consumos_en_bombeo_1;
-						int datos_mes_1_enlace_peninsula_baleares_2 = enlace_peninsula_baleares_1;
-						int datos_mes_1_saldo_intercambios_internacionales_2 = saldo_intercambios_internacionales_1;
-						int datos_mes_1_Demanda_2 = Demanda_1;
-										
-						f_comparacion_ficheros (anio_mes_2,mes_2, &hidraulica_0, &hidraulica_1, &eolica_0, &eolica_1, &solar_fotovoltaica_0, &solar_fotovoltaica_1, &solar_termica_0, &solar_termica_1, &otras_renovables_0, &otras_renovables_1, &residuos_renovables_0, &residuos_renovables_1, &Generacion_Renovable_0, &Generacion_Renovable_1, &turbinacion_bombeo_0, &turbinacion_bombeo_1, &nuclear_0, &nuclear_1, &ciclo_combinado_0, &ciclo_combinado_1, &carbon_0, &carbon_1, &cogeneracion_0, &cogeneracion_1, &residuos_no_renovables_0, &residuos_no_renovables_1, &Generacion_No_Renovable_0, &Generacion_No_Renovable_1, &consumos_en_bombeo_0, &consumos_en_bombeo_1, &enlace_peninsula_baleares_0, &enlace_peninsula_baleares_1, &saldo_intercambios_internacionales_0, &saldo_intercambios_internacionales_1, &Demanda_0, &Demanda_1);
-										
-						int datos_mes_2_hidraulica_1 = hidraulica_0;
-						int datos_mes_2_eolica_1 = eolica_0;
-						int datos_mes_2_solar_fotovoltaica_1 = solar_fotovoltaica_0;
-						int datos_mes_2_solar_termica_1 = solar_termica_0;
-						int datos_mes_2_otras_renovables_1 = otras_renovables_0;
-						int datos_mes_2_residuos_renovables_1 = residuos_renovables_0;
-						int datos_mes_2_Generacion_Renovable_1 = Generacion_Renovable_0;
-						int datos_mes_2_turbinacion_bombeo_1 = turbinacion_bombeo_0;
-						int datos_mes_2_nuclear_1 = nuclear_0;
-						int datos_mes_2_ciclo_combinado_1 = ciclo_combinado_0;
-						int datos_mes_2_carbon_1 = carbon_0;
-						int datos_mes_2_cogeneracion_1 = cogeneracion_0;
-						int datos_mes_2_residuos_no_renovables_1 = residuos_no_renovables_0;
-						int datos_mes_2_Generacion_No_Renovable_1 = Generacion_No_Renovable_0;
-						int datos_mes_2_consumos_en_bombeo_1 = consumos_en_bombeo_0;
-						int datos_mes_2_enlace_peninsula_baleares_1 = enlace_peninsula_baleares_0;
-						int datos_mes_2_saldo_intercambios_internacionales_1 = saldo_intercambios_internacionales_0;
-						int datos_mes_2_Demanda_1 = Demanda_0;
-										
-						int datos_mes_2_hidraulica_2 = hidraulica_1;
-						int datos_mes_2_eolica_2 = eolica_1;
-						int datos_mes_2_solar_fotovoltaica_2 = solar_fotovoltaica_1;
-						int datos_mes_2_solar_termica_2 = solar_termica_1;
-						int datos_mes_2_otras_renovables_2 = otras_renovables_1;
-						int datos_mes_2_residuos_renovables_2 = residuos_renovables_1;
-						int datos_mes_2_Generacion_Renovable_2 = Generacion_Renovable_1;
-						int datos_mes_2_turbinacion_bombeo_2 = turbinacion_bombeo_1;
-						int datos_mes_2_nuclear_2 = nuclear_1;
-						int datos_mes_2_ciclo_combinado_2 = ciclo_combinado_1;
-						int datos_mes_2_carbon_2 = carbon_1;
-						int datos_mes_2_cogeneracion_2 = cogeneracion_1;
-						int datos_mes_2_residuos_no_renovables_2 = residuos_no_renovables_1;
-						int datos_mes_2_Generacion_No_Renovable_2 = Generacion_No_Renovable_1;
-						int datos_mes_2_consumos_en_bombeo_2 = consumos_en_bombeo_1;
-						int datos_mes_2_enlace_peninsula_baleares_2 = enlace_peninsula_baleares_1;
-						int datos_mes_2_saldo_intercambios_internacionales_2 = saldo_intercambios_internacionales_1;
-						int datos_mes_2_Demanda_2 = Demanda_1;
-										
-						printf("Los valores obtenidos tras realizar la comparacion son: \n");
-						printf("\n");
-						printf("                     Variacion Mensual (GWh) ||  Variacion Acumulado Anual (GWh)  \n");
-						printf("  Hidraulica:                           %i   %i  \n",datos_mes_1_hidraulica_1-datos_mes_2_hidraulica_1, datos_mes_1_hidraulica_2-datos_mes_2_hidraulica_2);
-						printf("  Eolica:                               %i   %i  \n",datos_mes_1_eolica_1-datos_mes_2_eolica_1, datos_mes_1_eolica_2-datos_mes_2_eolica_2);
-						printf("  Solar Fotovoltaica:                   %i   %i  \n",datos_mes_1_solar_fotovoltaica_1-datos_mes_2_solar_fotovoltaica_1, datos_mes_1_solar_fotovoltaica_2-datos_mes_2_solar_fotovoltaica_2);
-						printf("  Solar Termica:                        %i   %i  \n",datos_mes_1_solar_termica_1-datos_mes_2_solar_termica_1, datos_mes_1_solar_termica_2-datos_mes_2_solar_termica_2);
-						printf("  Otras Renovables:                     %i   %i  \n",datos_mes_1_otras_renovables_1-datos_mes_2_otras_renovables_1, datos_mes_1_otras_renovables_2-datos_mes_2_otras_renovables_2);
-						printf("  Residuos Renovables:                  %i   %i  \n",datos_mes_1_residuos_renovables_1-datos_mes_2_residuos_renovables_1, datos_mes_1_residuos_renovables_2-datos_mes_2_residuos_renovables_2);
-						printf("  GENERACION RENOVABLE:                 %i   %i  \n",datos_mes_1_Generacion_Renovable_1-datos_mes_2_Generacion_Renovable_1, datos_mes_1_Generacion_Renovable_2-datos_mes_2_Generacion_Renovable_2);
-						printf("  Turbinacion Bombeo:                   %i   %i  \n",datos_mes_1_turbinacion_bombeo_1-datos_mes_2_turbinacion_bombeo_1, datos_mes_1_turbinacion_bombeo_2-datos_mes_2_turbinacion_bombeo_2);
-						printf("  Nuclear:                              %i   %i  \n",datos_mes_1_nuclear_1-datos_mes_2_nuclear_1, datos_mes_1_nuclear_2-datos_mes_2_nuclear_2);
-						printf("  Ciclo Combinado:                      %i   %i  \n",datos_mes_1_ciclo_combinado_1-datos_mes_2_ciclo_combinado_1, datos_mes_1_ciclo_combinado_2-datos_mes_2_ciclo_combinado_2);
-						printf("  Carbon:                               %i   %i  \n",datos_mes_1_carbon_1-datos_mes_2_carbon_1, datos_mes_1_carbon_2-datos_mes_2_carbon_2);
-						printf("  Cogeneracion:                         %i   %i  \n",datos_mes_1_cogeneracion_1-datos_mes_2_cogeneracion_1, datos_mes_1_cogeneracion_2-datos_mes_2_cogeneracion_2);
-						printf("  Residuos No Renovables:               %i   %i  \n",datos_mes_1_residuos_no_renovables_1-datos_mes_2_residuos_no_renovables_1, datos_mes_1_residuos_no_renovables_2-datos_mes_2_residuos_no_renovables_2);
-						printf("  GENERACION NO RENOVABLE:              %i   %i  \n",datos_mes_1_Generacion_No_Renovable_1-datos_mes_2_Generacion_No_Renovable_1, datos_mes_1_Generacion_No_Renovable_2-datos_mes_2_Generacion_No_Renovable_2);
-						printf("  Consumos en Bombeo:                   %i   %i  \n",datos_mes_1_consumos_en_bombeo_1-datos_mes_2_consumos_en_bombeo_1, datos_mes_1_consumos_en_bombeo_2-datos_mes_2_consumos_en_bombeo_2);
-						printf("  Enlace Peninsula-Baleares:            %i   %i  \n",datos_mes_1_enlace_peninsula_baleares_1-datos_mes_2_enlace_peninsula_baleares_1, datos_mes_1_enlace_peninsula_baleares_2-datos_mes_2_enlace_peninsula_baleares_2);
-						printf("  Saldo Intercambios Internacionales::  %i   %i  \n",datos_mes_1_saldo_intercambios_internacionales_1-datos_mes_2_saldo_intercambios_internacionales_1, datos_mes_1_saldo_intercambios_internacionales_2-datos_mes_2_saldo_intercambios_internacionales_2);
-						printf("  DEMANDA:                              %i   %i  \n",datos_mes_1_Demanda_1-datos_mes_2_Demanda_1, datos_mes_1_Demanda_2-datos_mes_2_Demanda_2);
-						printf("\n");
-										
-						break;
-					}
-										
-					default: // Primer Switch //
-					{
-						printf("Se ha producido un error, por favor, intentelo mas tarde. \n");
-						printf("\n");
-						break;
-					}
-				}
-									
+				f_comparacion();
+				menu();	
 				break;
 			}
 		case 2:
@@ -3060,6 +2891,203 @@ int informacion()
 
 
 
+void f_comparacion () /*Funcion Comparacion*/
+{
+    char eleccion_comparacion;
+    
+    f_comparacion_menu(&eleccion_comparacion);
+
+    switch (eleccion_comparacion) // Primer Switch //
+    {
+        case 'a': // Parte de Alvaro//
+        {
+            break;
+        }
+        
+        case 'b': // Datos Mensuales //
+        {
+            int anio_mes_1;
+
+            do // Seleccion del Anio del Primer Mes //
+            {
+                printf("Seleccione en que anio se encuentra el mes que quiere comparar: \n");
+                printf("2020 \n");
+                printf("2021 \n");
+                printf("2022 \n");
+                printf("2023 \n");
+                printf("Indique el anio seleccionado introduciendolo por el teclado (2020 | 2021 | 2022 | 2023) \n");
+                scanf("%i",&anio_mes_1);
+                printf("\n");
+            } while ((anio_mes_1 < 2020)||(anio_mes_1 > 2023));
+
+            int mes_1 = f_comparacion_eleccion_mes (anio_mes_1);
+
+
+            int anio_mes_2;
+            int mes_2;
+
+            do
+            {
+                do // Seleccion del Año del Segundo Mes //
+                {
+                    printf("Seleccione en que anio se encuentra el otro mes que quiere comparar: \n");
+                    printf("No seleccione el mismo mes que ha seleccionado anteriormente. \n");
+                    printf("2020 \n");
+                    printf("2021 \n");
+                    printf("2022 \n");
+                    printf("2023 \n");
+                    printf("Indique el anio seleccionado introduciendolo por el teclado (2020 | 2021 | 2022 | 2023) \n");
+                    scanf("%i",&anio_mes_2);
+                    printf("\n");
+                    } while ((anio_mes_2 < 2020)||(anio_mes_2 > 2023));
+
+                    mes_2 = f_comparacion_eleccion_mes (anio_mes_2);
+
+            } while ((anio_mes_1 == anio_mes_2) && (mes_1 == mes_2));
+
+            int hidraulica_0, hidraulica_1, eolica_0, eolica_1, solar_fotovoltaica_0, solar_fotovoltaica_1, solar_termica_0, solar_termica_1, otras_renovables_0, otras_renovables_1, residuos_renovables_0, residuos_renovables_1, Generacion_Renovable_0, Generacion_Renovable_1, turbinacion_bombeo_0, turbinacion_bombeo_1, nuclear_0, nuclear_1, ciclo_combinado_0, ciclo_combinado_1, carbon_0, carbon_1, cogeneracion_0, cogeneracion_1, residuos_no_renovables_0, residuos_no_renovables_1, Generacion_No_Renovable_0, Generacion_No_Renovable_1, consumos_en_bombeo_0, consumos_en_bombeo_1, enlace_peninsula_baleares_0, enlace_peninsula_baleares_1, saldo_intercambios_internacionales_0, saldo_intercambios_internacionales_1, Demanda_0, Demanda_1;
+    
+            f_comparacion_ficheros (anio_mes_1,mes_1, &hidraulica_0, &hidraulica_1, &eolica_0, &eolica_1, &solar_fotovoltaica_0, &solar_fotovoltaica_1, &solar_termica_0, &solar_termica_1, &otras_renovables_0, &otras_renovables_1, &residuos_renovables_0, &residuos_renovables_1, &Generacion_Renovable_0, &Generacion_Renovable_1, &turbinacion_bombeo_0, &turbinacion_bombeo_1, &nuclear_0, &nuclear_1, &ciclo_combinado_0, &ciclo_combinado_1, &carbon_0, &carbon_1, &cogeneracion_0, &cogeneracion_1, &residuos_no_renovables_0, &residuos_no_renovables_1, &Generacion_No_Renovable_0, &Generacion_No_Renovable_1, &consumos_en_bombeo_0, &consumos_en_bombeo_1, &enlace_peninsula_baleares_0, &enlace_peninsula_baleares_1, &saldo_intercambios_internacionales_0, &saldo_intercambios_internacionales_1, &Demanda_0, &Demanda_1);
+
+           
+            int datos_mes_1_hidraulica_1 = hidraulica_0;
+            int datos_mes_1_eolica_1 = eolica_0;
+            int datos_mes_1_solar_fotovoltaica_1 = solar_fotovoltaica_0;
+            int datos_mes_1_solar_termica_1 = solar_termica_0;
+            int datos_mes_1_otras_renovables_1 = otras_renovables_0;
+            int datos_mes_1_residuos_renovables_1 = residuos_renovables_0;
+            int datos_mes_1_Generacion_Renovable_1 = Generacion_Renovable_0;
+            int datos_mes_1_turbinacion_bombeo_1 = turbinacion_bombeo_0;
+            int datos_mes_1_nuclear_1 = nuclear_0;
+            int datos_mes_1_ciclo_combinado_1 = ciclo_combinado_0;
+            int datos_mes_1_carbon_1 = carbon_0;
+            int datos_mes_1_cogeneracion_1 = cogeneracion_0;
+            int datos_mes_1_residuos_no_renovables_1 = residuos_no_renovables_0;
+            int datos_mes_1_Generacion_No_Renovable_1 = Generacion_No_Renovable_0;
+            int datos_mes_1_consumos_en_bombeo_1 = consumos_en_bombeo_0;
+            int datos_mes_1_enlace_peninsula_baleares_1 = enlace_peninsula_baleares_0;
+            int datos_mes_1_saldo_intercambios_internacionales_1 = saldo_intercambios_internacionales_0;
+            int datos_mes_1_Demanda_1 = Demanda_0;
+
+            int datos_mes_1_hidraulica_2 = hidraulica_1;
+            int datos_mes_1_eolica_2 = eolica_1;
+            int datos_mes_1_solar_fotovoltaica_2 = solar_fotovoltaica_1;
+            int datos_mes_1_solar_termica_2 = solar_termica_1;
+            int datos_mes_1_otras_renovables_2 = otras_renovables_1;
+            int datos_mes_1_residuos_renovables_2 = residuos_renovables_1;
+            int datos_mes_1_Generacion_Renovable_2 = Generacion_Renovable_1;
+            int datos_mes_1_turbinacion_bombeo_2 = turbinacion_bombeo_1;
+            int datos_mes_1_nuclear_2 = nuclear_1;
+            int datos_mes_1_ciclo_combinado_2 = ciclo_combinado_1;
+            int datos_mes_1_carbon_2 = carbon_1;
+            int datos_mes_1_cogeneracion_2 = cogeneracion_1;
+            int datos_mes_1_residuos_no_renovables_2 = residuos_no_renovables_1;
+            int datos_mes_1_Generacion_No_Renovable_2 = Generacion_No_Renovable_1;
+            int datos_mes_1_consumos_en_bombeo_2 = consumos_en_bombeo_1;
+            int datos_mes_1_enlace_peninsula_baleares_2 = enlace_peninsula_baleares_1;
+            int datos_mes_1_saldo_intercambios_internacionales_2 = saldo_intercambios_internacionales_1;
+            int datos_mes_1_Demanda_2 = Demanda_1;
+
+            f_comparacion_ficheros (anio_mes_2,mes_2, &hidraulica_0, &hidraulica_1, &eolica_0, &eolica_1, &solar_fotovoltaica_0, &solar_fotovoltaica_1, &solar_termica_0, &solar_termica_1, &otras_renovables_0, &otras_renovables_1, &residuos_renovables_0, &residuos_renovables_1, &Generacion_Renovable_0, &Generacion_Renovable_1, &turbinacion_bombeo_0, &turbinacion_bombeo_1, &nuclear_0, &nuclear_1, &ciclo_combinado_0, &ciclo_combinado_1, &carbon_0, &carbon_1, &cogeneracion_0, &cogeneracion_1, &residuos_no_renovables_0, &residuos_no_renovables_1, &Generacion_No_Renovable_0, &Generacion_No_Renovable_1, &consumos_en_bombeo_0, &consumos_en_bombeo_1, &enlace_peninsula_baleares_0, &enlace_peninsula_baleares_1, &saldo_intercambios_internacionales_0, &saldo_intercambios_internacionales_1, &Demanda_0, &Demanda_1);
+
+            int datos_mes_2_hidraulica_1 = hidraulica_0;
+            int datos_mes_2_eolica_1 = eolica_0;
+            int datos_mes_2_solar_fotovoltaica_1 = solar_fotovoltaica_0;
+            int datos_mes_2_solar_termica_1 = solar_termica_0;
+            int datos_mes_2_otras_renovables_1 = otras_renovables_0;
+            int datos_mes_2_residuos_renovables_1 = residuos_renovables_0;
+            int datos_mes_2_Generacion_Renovable_1 = Generacion_Renovable_0;
+            int datos_mes_2_turbinacion_bombeo_1 = turbinacion_bombeo_0;
+            int datos_mes_2_nuclear_1 = nuclear_0;
+            int datos_mes_2_ciclo_combinado_1 = ciclo_combinado_0;
+            int datos_mes_2_carbon_1 = carbon_0;
+            int datos_mes_2_cogeneracion_1 = cogeneracion_0;
+            int datos_mes_2_residuos_no_renovables_1 = residuos_no_renovables_0;
+            int datos_mes_2_Generacion_No_Renovable_1 = Generacion_No_Renovable_0;
+            int datos_mes_2_consumos_en_bombeo_1 = consumos_en_bombeo_0;
+            int datos_mes_2_enlace_peninsula_baleares_1 = enlace_peninsula_baleares_0;
+            int datos_mes_2_saldo_intercambios_internacionales_1 = saldo_intercambios_internacionales_0;
+            int datos_mes_2_Demanda_1 = Demanda_0;
+
+            int datos_mes_2_hidraulica_2 = hidraulica_1;
+            int datos_mes_2_eolica_2 = eolica_1;
+            int datos_mes_2_solar_fotovoltaica_2 = solar_fotovoltaica_1;
+            int datos_mes_2_solar_termica_2 = solar_termica_1;
+            int datos_mes_2_otras_renovables_2 = otras_renovables_1;
+            int datos_mes_2_residuos_renovables_2 = residuos_renovables_1;
+            int datos_mes_2_Generacion_Renovable_2 = Generacion_Renovable_1;
+            int datos_mes_2_turbinacion_bombeo_2 = turbinacion_bombeo_1;
+            int datos_mes_2_nuclear_2 = nuclear_1;
+            int datos_mes_2_ciclo_combinado_2 = ciclo_combinado_1;
+            int datos_mes_2_carbon_2 = carbon_1;
+            int datos_mes_2_cogeneracion_2 = cogeneracion_1;
+            int datos_mes_2_residuos_no_renovables_2 = residuos_no_renovables_1;
+            int datos_mes_2_Generacion_No_Renovable_2 = Generacion_No_Renovable_1;
+            int datos_mes_2_consumos_en_bombeo_2 = consumos_en_bombeo_1;
+            int datos_mes_2_enlace_peninsula_baleares_2 = enlace_peninsula_baleares_1;
+            int datos_mes_2_saldo_intercambios_internacionales_2 = saldo_intercambios_internacionales_1;
+            int datos_mes_2_Demanda_2 = Demanda_1;
+
+            printf("Los valores obtenidos tras realizar la comparacion son: \n");
+            printf("\n");
+
+            printf("                     Variacion Mensual (GWh) ||  Variacion Acumulado Anual (GWh)  \n");
+                printf("  Hidraulica:                           %i   %i  \n",datos_mes_1_hidraulica_1-datos_mes_2_hidraulica_1, datos_mes_1_hidraulica_2-datos_mes_2_hidraulica_2);
+                printf("  Eolica:                               %i   %i  \n",datos_mes_1_eolica_1-datos_mes_2_eolica_1, datos_mes_1_eolica_2-datos_mes_2_eolica_2);
+                printf("  Solar Fotovoltaica:                   %i   %i  \n",datos_mes_1_solar_fotovoltaica_1-datos_mes_2_solar_fotovoltaica_1, datos_mes_1_solar_fotovoltaica_2-datos_mes_2_solar_fotovoltaica_2);
+                printf("  Solar Termica:                        %i   %i  \n",datos_mes_1_solar_termica_1-datos_mes_2_solar_termica_1, datos_mes_1_solar_termica_2-datos_mes_2_solar_termica_2);
+                printf("  Otras Renovables:                     %i   %i  \n",datos_mes_1_otras_renovables_1-datos_mes_2_otras_renovables_1, datos_mes_1_otras_renovables_2-datos_mes_2_otras_renovables_2);
+                printf("  Residuos Renovables:                  %i   %i  \n",datos_mes_1_residuos_renovables_1-datos_mes_2_residuos_renovables_1, datos_mes_1_residuos_renovables_2-datos_mes_2_residuos_renovables_2);
+                printf("  GENERACION RENOVABLE:                 %i   %i  \n",datos_mes_1_Generacion_Renovable_1-datos_mes_2_Generacion_Renovable_1, datos_mes_1_Generacion_Renovable_2-datos_mes_2_Generacion_Renovable_2);
+                printf("  Turbinacion Bombeo:                   %i   %i  \n",datos_mes_1_turbinacion_bombeo_1-datos_mes_2_turbinacion_bombeo_1, datos_mes_1_turbinacion_bombeo_2-datos_mes_2_turbinacion_bombeo_2);
+                printf("  Nuclear:                              %i   %i  \n",datos_mes_1_nuclear_1-datos_mes_2_nuclear_1, datos_mes_1_nuclear_2-datos_mes_2_nuclear_2);
+                printf("  Ciclo Combinado:                      %i   %i  \n",datos_mes_1_ciclo_combinado_1-datos_mes_2_ciclo_combinado_1, datos_mes_1_ciclo_combinado_2-datos_mes_2_ciclo_combinado_2);
+                printf("  Carbon:                               %i   %i  \n",datos_mes_1_carbon_1-datos_mes_2_carbon_1, datos_mes_1_carbon_2-datos_mes_2_carbon_2);
+                printf("  Cogeneracion:                         %i   %i  \n",datos_mes_1_cogeneracion_1-datos_mes_2_cogeneracion_1, datos_mes_1_cogeneracion_2-datos_mes_2_cogeneracion_2);
+                printf("  Residuos No Renovables:               %i   %i  \n",datos_mes_1_residuos_no_renovables_1-datos_mes_2_residuos_no_renovables_1, datos_mes_1_residuos_no_renovables_2-datos_mes_2_residuos_no_renovables_2);
+                printf("  GENERACION NO RENOVABLE:              %i   %i  \n",datos_mes_1_Generacion_No_Renovable_1-datos_mes_2_Generacion_No_Renovable_1, datos_mes_1_Generacion_No_Renovable_2-datos_mes_2_Generacion_No_Renovable_2);
+                printf("  Consumos en Bombeo:                   %i   %i  \n",datos_mes_1_consumos_en_bombeo_1-datos_mes_2_consumos_en_bombeo_1, datos_mes_1_consumos_en_bombeo_2-datos_mes_2_consumos_en_bombeo_2);
+                printf("  Enlace Peninsula-Baleares:            %i   %i  \n",datos_mes_1_enlace_peninsula_baleares_1-datos_mes_2_enlace_peninsula_baleares_1, datos_mes_1_enlace_peninsula_baleares_2-datos_mes_2_enlace_peninsula_baleares_2);
+                printf("  Saldo Intercambios Internacionales::  %i   %i  \n",datos_mes_1_saldo_intercambios_internacionales_1-datos_mes_2_saldo_intercambios_internacionales_1, datos_mes_1_saldo_intercambios_internacionales_2-datos_mes_2_saldo_intercambios_internacionales_2);
+                printf("  DEMANDA:                              %i   %i  \n",datos_mes_1_Demanda_1-datos_mes_2_Demanda_1, datos_mes_1_Demanda_2-datos_mes_2_Demanda_2);
+                printf("\n");
+
+            break;
+        }
+
+        case 'c': //Salir al Menu//
+        {
+            menu();
+        }
+        
+        default: // Primer Switch //
+        {
+            printf("Se ha producido un error, por favor, inténtelo más tarde. \n");
+            printf("\n");
+            break;
+        }
+	}
+}
+
+void f_comparacion_menu (char *eleccion_comparacion)
+{
+	char eleccion_comparacion_char;
+	
+	do /*Seleccion de la Funcion a Realizar */
+    {	
+        printf("\n");
+		printf("Seleccione que datos desea comparar \n");
+        printf("a.-Parte de Alvaro \n");
+        printf("b.-Comparacion de Datos Mensuales \n");
+        printf("c.-Salir al Menu \n ");
+        printf("Seleccione la opcion a realizar introduciendo (a | b | c). \n");
+        scanf("%c",&eleccion_comparacion_char);
+        printf("\n");
+        
+        *eleccion_comparacion = eleccion_comparacion_char;
+        
+    } while ((eleccion_comparacion_char!='a')&&(eleccion_comparacion_char!='b')&&(eleccion_comparacion_char!='c'));
+}
 
 int f_comparacion_eleccion_mes (int comparacion_eleccion_mes_int) /* Funcion Seleccion de Meses a Comparar */ 
 {
