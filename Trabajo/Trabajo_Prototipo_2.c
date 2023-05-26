@@ -1,4 +1,11 @@
-//EJEMPLO TRABAJO
+// TRABAJO INFORMÁTICA
+/*
+	Integrantes:
+	David Cano Pérez
+	Gonzalo Morcillo Garcia
+	Jose Eduardo Arauz Yllanez
+	Álvaro Cuesta Sanz
+*/
 
 #include <stdio.h>
 #include<string.h>
@@ -8,6 +15,7 @@
 
 //ESTRUCTURAS
 
+/*Estructuras David*/
 /*Estructura para NOMBRE APELLIDO1 APELLIDO2*/
 typedef struct denominacion
 {
@@ -56,7 +64,7 @@ typedef struct iniciar_sesion
 }iniciar_sesion;
 
 
-
+/*Estructuras Gonzalo*/
 /*Estructura para los Tipos de Datos a Analizar*/
 typedef struct 
 {
@@ -81,8 +89,9 @@ typedef struct
 } datos_mes;
 
 
+/*Estructuras Eduardo*/
 /*Estructuras para guardar datos de ficheros y leer los ficheros*/
-typedef struct 
+typedef struct
 {
 	char nombre[30];
 	double datos[100];
@@ -102,6 +111,7 @@ typedef struct
 
 //FUNCIONES
 
+/*Funciones David*/
 /*Crear Cuenta*/
 int CrearCuenta();
 /*Iniciar Sesion*/
@@ -113,6 +123,7 @@ int menu();
 /*INFORMACION*/
 int informacion();
 
+/*Funciones Gonzalo*/
 /*Funcion Comparacion*/
 void f_comparacion ();
 void f_comparacion_menu (char *eleccion_comparacion);
@@ -121,7 +132,7 @@ int f_comparacion_eleccion_mes (int eleccion_mes_int);
 /*Funcion para Abrir y Cerrar los Ficheros donde se encuentran los datos de cada mes*/
 void f_comparacion_ficheros (int anio_mes_void, int mes_void, int *hidraulica_0, int *hidraulica_1, int *eolica_0, int *eolica_1, int *solar_fotovoltaica_0, int *solar_fotovoltaica_1, int *solar_termica_0, int *solar_termica_1, int *otras_renovables_0, int *otras_renovables_1, int *residuos_renovables_0, int *residuos_renovables_1, int *Generacion_Renovable_0, int *Generacion_Renovable_1, int *turbinacion_bombeo_0, int *turbinacion_bombeo_1, int *nuclear_0, int *nuclear_1, int *ciclo_combinado_0, int *ciclo_combinado_1, int *carbon_0, int *carbon_1, int *cogeneracion_0, int *cogeneracion_1, int *residuos_no_renovables_0, int *residuos_no_renovables_1, int *Generacion_No_Renovable_0, int *Generacion_No_Renovable_1, int *consumos_en_bombeo_0, int *consumos_en_bombeo_1, int *enlace_peninsula_baleares_0, int *enlace_peninsula_baleares_1, int *saldo_intercambios_internacionales_0, int *saldo_intercambios_internacionales_1, int *Demanda_0, int *Demanda_1);
 
-
+/*Funciones Eduardo*/
 /*Funcion para predicciones*/
 void predicciones();
 
@@ -164,7 +175,7 @@ int main()
 	
 	if(seleccion == 1)
 	{
-		/*Si en la funcion salta un return -1, en esta funcion tambien se hace el return -1*/
+		/*Si en la funcion salta un return -1, en el main también se hace el return -1*/
 		comprobacion_error = CrearCuenta();
 		if(comprobacion_error == -1)
 		{
@@ -179,7 +190,7 @@ int main()
 	
 	if(seleccion == 2)
 	{
-		/*Si en la función salta un return -1, en esta funciï¿½n tmabiï¿½n se hace el return -1*/
+		/*Si en la función salta un return -1, en el main también se hace el return -1*/
 		comprobacion_error = IniciarSesion();
 		if(comprobacion_error == -1)
 		{
@@ -192,7 +203,7 @@ int main()
 }
 
 
-//FUNCIONES (En orden de uso)
+//FUNCIONES
 
 /*Función Crear Cuenta*/
 
@@ -237,6 +248,7 @@ int CrearCuenta()
 			else
 			{
 				/*CORREO ELECTRONICO*/
+				
 				int i = 0;
 				int j = 0;
 				int k = 0;
@@ -319,7 +331,7 @@ int CrearCuenta()
 			fprintf(pf1,"%s\n", CCusuario.CCPersona.correo);
 			
 			
-			/*CONTRASEï¿½A DEL CORREO*/
+			/*CONTRASEÑA DEL CORREO*/
 			
 			/*Creamos y abrimos un fichero donde almacenaremos las contraseñas y correos de los usuarios, se utilizará para el INICIO DE SESIÓN*/
 			FILE *pf3;
@@ -343,7 +355,8 @@ int CrearCuenta()
 					i++;
 				}
 				int longitud1 = i;
-			
+				
+				/*Hacemos que la contraseña solo pueda tener letras y numeros*/
 				while(CCusuario.CCPersona.contrasena[j] != '\0')
 				{
 					if(((CCusuario.CCPersona.contrasena[j] < 48) || (CCusuario.CCPersona.contrasena[j] > 57)) && ((CCusuario.CCPersona.contrasena[j] < 65) || (CCusuario.CCPersona.contrasena[j] > 90)) && ((CCusuario.CCPersona.contrasena[j] < 97) || (CCusuario.CCPersona.contrasena[j] > 122)))
@@ -360,7 +373,7 @@ int CrearCuenta()
 					j++;
 				}
 							
-				/*Simplemente por hacerlo algo mï¿½s real imprimimos (*) en lugar de la contraseï¿½a*/
+				/*Simplemente por hacerlo algo más real imprimimos (*) en lugar de la contraseña*/
 				printf("Contrasena: ");
 				for(k = 0 ; k < longitud1 ; k++)
 				{
@@ -376,7 +389,7 @@ int CrearCuenta()
 			
 		/*NOMBRE APELLIDO1 APELLIDO2*/
 			
-		/*Pedimos al usuario el primer apellido, en el caso de poner cualquier otra cosa que no sea una letra saltarï¿½ ERROR*/
+		/*Pedimos al usuario el primer apellido, en el caso de poner cualquier otra cosa que no sea una letra saltaría ERROR*/
 		printf("\n\n-Primer Apellido: ");
 		scanf("%s", &CCusuario.usuario.primer_apellido);
 		
@@ -396,7 +409,7 @@ int CrearCuenta()
 		i++;
 		}
 			
-		/*Pedimos al usuario el segundo apellido, en el caso de poner cualquier otra cosa que no sea una letra saltarï¿½ ERROR*/
+		/*Pedimos al usuario el segundo apellido, en el caso de poner cualquier otra cosa que no sea una letra saltaría ERROR*/
 		printf("-Segundo Apellido: ");
 		scanf("%s", CCusuario.usuario.segundo_apellido);
 			
@@ -416,7 +429,7 @@ int CrearCuenta()
 			i++;
 		}
 		
-		/*Pedimos al usuario el nombre, en el caso de poner cualquier otra cosa que no sea un aletra saltarï¿½ ERROR*/
+		/*Pedimos al usuario el nombre, en el caso de poner cualquier otra cosa que no sea un aletra saltaría ERROR*/
 		printf("-Nombre: ");
 		scanf("%s", CCusuario.usuario.nombre);
 		
@@ -440,10 +453,12 @@ int CrearCuenta()
 		printf("\nNombre Completo: %s %s %s", CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
 		fprintf(pf,"%s%s%s;", CCusuario.usuario.nombre, CCusuario.usuario.primer_apellido, CCusuario.usuario.segundo_apellido);
 		
+		
 		/*FECHA DE NACIMIENTO*/
+		
 		printf("\n\n-Fecha de nacimiento");
 		
-		/*Pedimos que Introduzca el Aï¿½o*/
+		/*Pedimos que Introduzca el Año*/
 		do
 		{
 			printf("\nAno: ");
@@ -665,7 +680,7 @@ int CrearCuenta()
 					}
 			}
 		}
-		else /*Si el aï¿½o no es Bisiesto*/
+		else /*Si el año no es Bisiesto*/
 		{
 			/*Pedimos que Introduzca el Mes*/
 			do
@@ -877,19 +892,19 @@ int CrearCuenta()
 			
 			
 		/*DNI*/
-		/*Exigimos que tenga el tamaï¿½o real de un numero de DNI*/
+		/*Exigimos que tenga el tamaño real de un numero de DNI*/
 		do
 		{
 			printf("\n\n-Introduce la parte numerica de tu DNI");
 			printf("\nNumero: ");
 			scanf("%i", &CCusuario.persona.parte_numerica);
 				
-			if((CCusuario.persona.parte_numerica < 1) || (CCusuario.persona.parte_numerica > 99999999))
+			if((CCusuario.persona.parte_numerica < 10000000) || (CCusuario.persona.parte_numerica > 99999999))
 			{
 				printf("ERROR; un numero de DNI no tiene esas cifras");
 			}
 		}
-		while((CCusuario.persona.parte_numerica < 1) || (CCusuario.persona.parte_numerica > 99999999));
+		while((CCusuario.persona.parte_numerica < 10000000) || (CCusuario.persona.parte_numerica > 99999999));
 		
 		do
 		{
@@ -914,7 +929,8 @@ int CrearCuenta()
 		
 		fprintf(pf,"%i %c;",CCusuario.persona.parte_numerica, CCusuario.persona.letra);
 		
-		/*PROVINCIA Y Cï¿½DIGO POSTAL*/
+		
+		/*PROVINCIA Y CÓDIGO POSTAL*/
 			
 		do
 		{
@@ -933,7 +949,7 @@ int CrearCuenta()
 		printf("\nCodigo Postal: %s", CCusuario.cp);
 		fprintf(pf,"%s;",CCusuario.cp);
 		
-		/*Declaramos las variables de seleccion que utilizaremos a continuaciï¿½n*/
+		/*Declaramos las variables de seleccion que utilizaremos a continuación*/
 		int selec1, selec2, selec3, selec4, selec5, selec6, selec7, selec8, selec9;
 		int selec10, selec11, selec12, selec13, selec14, selec15, selec16, selec17, selec18, selec19;
 		int selec20, selec21, selec22, selec23, selec24, selec25, selec26, selec27, selec28, selec29;
@@ -941,137 +957,138 @@ int CrearCuenta()
 		int selec40, selec41, selec42, selec43, selec44, selec45, selec46, selec47, selec48, selec49;
 		int selec50, selec51, selec52;
 		
+		/*Sabemos que cada proviancia española tiene un inicio de codigo postal diferente, segun el codigo postal que meta el usuario, preguntamos si reside en la provincia corrspondiente*/
 		if(CCusuario.cp[0] == '0')
-			{	
-				if(CCusuario.cp[1] == '1')
+		{	
+			if(CCusuario.cp[1] == '1')
+			{
+				printf("\n01: Alava\n");
+				do
 				{
-					printf("\n01: Alava\n");
-					do
-					{
-						printf("\nResides en Alava");
-						printf("\n1.-Si");
-						printf("\n2.-No");
-						printf("\nSeleccion (1 | 2): ");
-						scanf("%i", &selec1);
-					}
-					while((selec1 < 1) || (selec1 > 2));
-					
-					switch (selec1)
-					{
-						case 1:
-							{
-								printf("\nProvincia: Alava");
-								fprintf(pf,"Alava;",CCusuario.provincia);
-								break;
-							}
-						case 2:
-							{
-								printf("\n-Introduce la provincia en la que reside");
-								printf("\nProvincia: ");
-								scanf("%s", &CCusuario.provincia);
-						
-								fprintf(pf,"%s",CCusuario.provincia);
-								break;
-							}
-					}
+					printf("\nResides en Alava");
+					printf("\n1.-Si");
+					printf("\n2.-No");
+					printf("\nSeleccion (1 | 2): ");
+					scanf("%i", &selec1);
 				}
-				if(CCusuario.cp[1] == '2')
+				while((selec1 < 1) || (selec1 > 2));
+				
+				switch (selec1)
 				{
-					printf("\n02: Albacete\n");
-					do
-					{
-						printf("\nResides en Albacete");
-						printf("\n1.-Si");
-						printf("\n2.-No");
-						printf("\nSeleccion (1 | 2): ");
-						scanf("%i", &selec2);
-					}
-					while((selec2 < 1) || (selec2 > 2));
+					case 1:
+						{
+							printf("\nProvincia: Alava");
+							fprintf(pf,"Alava;",CCusuario.provincia);
+							break;
+						}
+					case 2:
+						{
+							printf("\n-Introduce la provincia en la que reside");
+							printf("\nProvincia: ");
+							scanf("%s", &CCusuario.provincia);
 					
-					switch (selec2)
-					{
-						case 1:
-							{
-								printf("\nProvincia: Albacete");
-								fprintf(pf,"Albacete;",CCusuario.provincia);
-								break;
-							}
-						case 2:
-							{
-								printf("\n-Introduce la provincia en la que reside");
-								printf("\nProvincia: ");
-								scanf("%s", &CCusuario.provincia);
-						
-								fprintf(pf,"%s",CCusuario.provincia);
-								break;
-							}
-					}
+							fprintf(pf,"%s",CCusuario.provincia);
+							break;
+						}
 				}
-				if(CCusuario.cp[1] == '3')
+			}
+			if(CCusuario.cp[1] == '2')
+			{
+				printf("\n02: Albacete\n");
+				do
 				{
-					printf("\n03: Alicante\n");
-					do
-					{
-						printf("\nResides en Alicante");
-						printf("\n1.-Si");
-						printf("\n2.-No");
-						printf("\nSeleccion (1 | 2): ");
-						scanf("%i", &selec3);
-					}
-					while((selec3 < 1) || (selec3 > 2));
-					
-					switch (selec3)
-					{
-						case 1:
-							{
-								printf("\nProvincia: Alicante");
-								fprintf(pf,"Alicante;",CCusuario.provincia);
-								break;
-							}
-						case 2:
-							{
-								printf("\n-Introduce la provincia en la que reside");
-								printf("\nProvincia: ");
-								scanf("%s", &CCusuario.provincia);
-						
-								fprintf(pf,"%s",CCusuario.provincia);
-								break;
-							}
-					}
+					printf("\nResides en Albacete");
+					printf("\n1.-Si");
+					printf("\n2.-No");
+					printf("\nSeleccion (1 | 2): ");
+					scanf("%i", &selec2);
 				}
-				if(CCusuario.cp[1] == '4')
+				while((selec2 < 1) || (selec2 > 2));
+				
+				switch (selec2)
 				{
-					printf("\n04: Almeria\n");
-					do
-					{
-						printf("\nResides en Almeria");
-						printf("\n1.-Si");
-						printf("\n2.-No");
-						printf("\nSeleccion (1 | 2): ");
-						scanf("%i", &selec4);
-					}
-					while((selec4 < 1) || (selec4 > 2));
+					case 1:
+						{
+							printf("\nProvincia: Albacete");
+							fprintf(pf,"Albacete;",CCusuario.provincia);
+							break;
+						}
+					case 2:
+						{
+							printf("\n-Introduce la provincia en la que reside");
+							printf("\nProvincia: ");
+							scanf("%s", &CCusuario.provincia);
 					
-					switch (selec4)
-					{
-						case 1:
-							{
-								printf("\nProvincia: Almeria");
-								fprintf(pf,"Almeria;",CCusuario.provincia);
-								break;
-							}
-						case 2:
-							{
-								printf("\n-Introduce la provincia en la que reside");
-								printf("\nProvincia: ");
-								scanf("%s", &CCusuario.provincia);
-						
-								fprintf(pf,"%s",CCusuario.provincia);
-								break;
-							}
-					}
+							fprintf(pf,"%s",CCusuario.provincia);
+							break;
+						}
 				}
-				if(CCusuario.cp[1] == '5')
+			}
+			if(CCusuario.cp[1] == '3')
+			{
+				printf("\n03: Alicante\n");
+				do
+				{
+					printf("\nResides en Alicante");
+					printf("\n1.-Si");
+					printf("\n2.-No");
+					printf("\nSeleccion (1 | 2): ");
+					scanf("%i", &selec3);
+				}
+				while((selec3 < 1) || (selec3 > 2));
+				
+				switch (selec3)
+				{
+					case 1:
+						{
+							printf("\nProvincia: Alicante");
+							fprintf(pf,"Alicante;",CCusuario.provincia);
+							break;
+						}
+					case 2:
+						{
+							printf("\n-Introduce la provincia en la que reside");
+							printf("\nProvincia: ");
+							scanf("%s", &CCusuario.provincia);
+					
+							fprintf(pf,"%s",CCusuario.provincia);
+							break;
+						}
+				}
+			}
+			if(CCusuario.cp[1] == '4')
+			{
+				printf("\n04: Almeria\n");
+				do
+				{
+					printf("\nResides en Almeria");
+					printf("\n1.-Si");
+					printf("\n2.-No");
+					printf("\nSeleccion (1 | 2): ");
+					scanf("%i", &selec4);
+				}
+				while((selec4 < 1) || (selec4 > 2));
+				
+				switch (selec4)
+				{
+					case 1:
+						{
+							printf("\nProvincia: Almeria");
+							fprintf(pf,"Almeria;",CCusuario.provincia);
+							break;
+						}
+					case 2:
+						{
+							printf("\n-Introduce la provincia en la que reside");
+							printf("\nProvincia: ");
+							scanf("%s", &CCusuario.provincia);
+					
+							fprintf(pf,"%s",CCusuario.provincia);
+							break;
+						}
+				}
+			}
+			if(CCusuario.cp[1] == '5')
 				{
 					printf("\n05: Avila\n");
 					do
@@ -2630,7 +2647,7 @@ int IniciarSesion()
 		int longitud_correo = i;
 		
 		/*Creamos una variable donde guardaremos el contenido del fichero*/		
-		char correo_pf5[500];
+		char correo_pf5[10000];
 		i = 0;
 		
 		/*Medimos la longitud del fichero del cual leeremos todos los correos*/		
@@ -2772,7 +2789,7 @@ void cambio_mayusculas(char nombre[], char apellido1[], char apellido2[])
 }
 
 
-/*Una vez finalizado el Inicio de sesiï¿½n llevamos al usuario al menu*/
+/*Una vez finalizado el Inicio de sesiónn llevamos al usuario al menu*/
 int menu()
 {
 	int seleccion;
@@ -2783,18 +2800,17 @@ int menu()
 		printf("\n\n\n\n\n\nSeleccione que desea realizar");
 		printf("\n1.-Comparaciones");
 		printf("\n2.-Predicciones");
-		printf("\n3.-Mis Datos");
-		printf("\n4.-Informacion");
-		printf("\n5.-Salir");
-		printf("\nSeleccion( 1 | 2 | 3 | 4 | 5 ): ");
+		printf("\n3.-Informacion");
+		printf("\n4.-Salir");
+		printf("\nSeleccion( 1 | 2 | 3 | 4 ): ");
 		scanf("%i", &seleccion);
 		
-		if((seleccion < 1) || (seleccion > 5))
+		if((seleccion < 1) || (seleccion > 4))
 		{
 			printf("ERROR; la seleccion no es valida");
 		}
 	}
-	while((seleccion < 1) || (seleccion > 5));
+	while((seleccion < 1) || (seleccion > 4));
 	
 	switch (seleccion)
 	{
@@ -2813,12 +2829,6 @@ int menu()
 			}
 		case 3:
 			{
-				printf("\n\nMIS DATOS");
-				
-				break;
-			}
-		case 4:
-			{
 				printf("\n\nINFORMACION");
 				int comprobacion_error1 = informacion();
 				if(comprobacion_error1 == -1)
@@ -2828,7 +2838,7 @@ int menu()
 				
 				break;
 			}
-		case 5:
+		case 4:
 			{
 				printf("\n\nSALIR");
 				return 0;
