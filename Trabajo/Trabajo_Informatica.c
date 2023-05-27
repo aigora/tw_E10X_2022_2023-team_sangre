@@ -185,7 +185,7 @@ int main()
 	}
 	
 	
-	//INICIAR SESIï¿½N
+	//INICIAR SESIÓN
 	/*Si el usuario selecciona 2(INICIAR SESIï¿½N)*/
 	
 	if(seleccion == 2)
