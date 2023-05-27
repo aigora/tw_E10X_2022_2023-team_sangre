@@ -2656,11 +2656,14 @@ int IniciarSesion()
 			i++;
 		}
 		int longitud_cadena = i;
-		
+
 		/*Comenzamos el bucle para comprobar si el correo introducido ya existe o el usuario debe crear cuenta*/			
 		k = 0;
 		j = 0;
 		i = 0;
+		
+		int check = 0;
+		int principio_contrasena = 0;
 					
 		for(i = 0 ; i < longitud_cadena ; i++)
 		{
@@ -2672,83 +2675,82 @@ int IniciarSesion()
 				{
 					if(ISusuario.ISpersona.correo[k] != correo_pf5[j])
 					{
-						break;
+						k = longitud_correo;
 					}
 					else
 					{
 						j++;
-					}
-								
+					}			
 				}
-			}
-			if(k == longitud_correo)
-			{
-				int comprobacion = 0;
-				int c = 0;
-				do
+				if(j == i + longitud_correo)
 				{
-					printf("-Introduce la contrasena: ");
-					scanf("%s", &ISusuario.ISpersona.contrasena);
-			
-					j = 0;
-					k = 0;
-					
-					
-					/*Medimos la longitud de la contrase�a introducida por el usuario*/
-					
-					while(ISusuario.ISpersona.contrasena[k] != '\0')
-					{
-						k++;
-					}
-					int longitud_contrasena = k;
-				
-					/*Guardamos el valor de i*/
-					
-					int principio_contrasena = i + longitud_correo;
-					principio_contrasena = principio_contrasena + 1;
-					
-					/*Comenzamos el bucle para comprobar si la contrase�a introducida por el usuario es correcta*/
-				
-					for(i = 0 ; i < longitud_contrasena ; i++)
-					{
-						if(ISusuario.ISpersona.contrasena[i] != correo_pf5[principio_contrasena + i])
-						{
-							break;
-						}
-						
-					}
-					
-					/*Observamos que ser� correcta si el valor que tenemos en longitud_contrasena es igual al valor de i*/
-					
-					if(longitud_contrasena == i)
-					{
-						printf("\nInicio de Sesion completado\n");
-						comprobacion = 1;
-						menu();
-					}
-					/*Si la contrase�a introducida no es correcta, el usuario tiene tres intentos para escribirla bien*/
-					else
-					{
-						printf("CONTRASENA INCORRECTA\n\n");
-						comprobacion = 0;
-					
-					}
-					c++;
+					check = 1;
+					principio_contrasena = i + longitud_correo + 1;
 				}
-				/*Si en esos tres intentos no la pone bien el programa le expulsar� del INICIO DE SESI�N*/
-				while((comprobacion != 1) && (c < 3));
-				return 0;
-			}
-			else
-			{
-				printf("No existe una cuenta con este correo");
-				CrearCuenta();
-				return 0;
 			}
 		}
 		
-	}
+		if(check == 1)
+		{
+			int comprobacion = 0;
+			int c = 0;
+			do
+			{
+				printf("-Introduce la contrasena: ");
+				scanf("%s", &ISusuario.ISpersona.contrasena);
 			
+				j = 0;
+				k = 0;
+					
+					
+				/*Medimos la longitud de la contrase�a introducida por el usuario*/
+					
+				while(ISusuario.ISpersona.contrasena[k] != '\0')
+				{
+					k++;
+				}
+				int longitud_contrasena = k;
+				
+					
+				/*Comenzamos el bucle para comprobar si la contrase�a introducida por el usuario es correcta*/
+				
+				for(i = 0 ; i < longitud_contrasena ; i++)
+				{
+					if(ISusuario.ISpersona.contrasena[i] != correo_pf5[principio_contrasena + i])
+					{
+						break;
+					}
+					
+				}
+					
+				/*Observamos que ser� correcta si el valor que tenemos en longitud_contrasena es igual al valor de i*/
+					
+				if(longitud_contrasena == i)
+				{
+					printf("\nInicio de Sesion completado\n");
+					comprobacion = 1;
+					menu();
+				}
+				/*Si la contrase�a introducida no es correcta, el usuario tiene tres intentos para escribirla bien*/
+				else
+				{
+					printf("CONTRASENA INCORRECTA\n\n");
+					comprobacion = 0;
+				
+				}
+				c++;
+			}
+			/*Si en esos tres intentos no la pone bien el programa le expulsar� del INICIO DE SESI�N*/
+			while((comprobacion != 1) && (c < 3));
+			return 0;
+		}
+		else
+		{
+			printf("No existe una cuenta con este correo");
+			CrearCuenta();
+			return 0;
+		}		
+	}
 	fclose(pf5);		
 }
 
