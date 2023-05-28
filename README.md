@@ -16,4 +16,6 @@ David Cano Pérez E-105
 
 ## Objetivos del trabajo
 
-Sacar el 10
+Realizar un programa funcional y sencillo de utilizar, que cumpla los requisitos solicitados por el profesor de manera grata.
+
+Esperamos que le sea de su agrado.
