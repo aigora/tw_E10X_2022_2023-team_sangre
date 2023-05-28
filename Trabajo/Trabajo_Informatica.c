@@ -1,10 +1,11 @@
-// TRABAJO INFORMÁTICA
+
+// TRABAJO INFORM?TICA
 /*
 	Integrantes:
-	David Cano Pérez
+	David Cano P?rez
 	Gonzalo Morcillo Garcia
 	Jose Eduardo Arauz Yllanez
-	Álvaro Cuesta Sanz
+	?lvaro Cuesta Sanz
 */
 
 #include <stdio.h>
@@ -136,14 +137,6 @@ void f_comparacion_ficheros (int anio_mes_void, int mes_void, int *hidraulica_0,
 /*Funcion para predicciones*/
 void predicciones();
 
-/*Funciones Álvaro*/
-/*Función pedir que años comprar al usuario*/
-void solicitarAnios(int *anio1, int *anio2);
-/*Función redactar información ficheros*/
-void imprimirInformacion(FILE *archivo);
-/*Función abrir ficheros anios*/
-void AniosFicheros(int anio1, int anio2);
-
 
 //COMIENZO CON EL CREAR CUENTA O INICIO DE SESION
 int main()
@@ -183,7 +176,7 @@ int main()
 	
 	if(seleccion == 1)
 	{
-		/*Si en la funcion salta un return -1, en el main también se hace el return -1*/
+		/*Si en la funcion salta un return -1, en el main tambi?n se hace el return -1*/
 		comprobacion_error = CrearCuenta();
 		if(comprobacion_error == -1)
 		{
@@ -193,12 +186,12 @@ int main()
 	}
 	
 	
-	//INICIAR SESIÓN
-	/*Si el usuario selecciona 2(INICIAR SESIï¿½N)*/
+	//INICIAR SESI?N
+	/*Si el usuario selecciona 2(INICIAR SESI?N)*/
 	
 	if(seleccion == 2)
 	{
-		/*Si en la función salta un return -1, en el main también se hace el return -1*/
+		/*Si en la funci?n salta un return -1, en el main tambi?n se hace el return -1*/
 		comprobacion_error = IniciarSesion();
 		if(comprobacion_error == -1)
 		{
@@ -213,7 +206,7 @@ int main()
 
 //FUNCIONES
 
-/*Función Crear Cuenta*/
+/*Funci?n Crear Cuenta*/
 
 int CrearCuenta()
 {
@@ -243,7 +236,7 @@ int CrearCuenta()
 		}
 		else
 		{
-			/*Abrimos el fichero(sólo lectura) donde almacenamos los correos de los usurios, aquí comprobaremos con el correo introducido
+			/*Abrimos el fichero(s?lo lectura) donde almacenamos los correos de los usurios, aqu? comprobaremos con el correo introducido
 			si el usuario ya tiene una cuenta creada con ese mismo correo, en caso afirmativo le advetimos que ya tiene una cuenta creada con ese correo*/
 			FILE *pf2;
 			
@@ -263,7 +256,7 @@ int CrearCuenta()
 				printf("\n\n-Introduce tu Correo Electronico: ");
 				scanf("%s", &CCusuario.CCPersona.correo);
 				
-				/*Creamos un dominio @gmail.com, es decir cualquier otra terminación no es válida*/
+				/*Creamos un dominio @gmail.com, es decir cualquier otra terminaci?n no es v?lida*/
 				while(CCusuario.CCPersona.correo[i] != '\0')
 				{
 					i++;
@@ -322,7 +315,7 @@ int CrearCuenta()
 								
 						}
 					}
-					/*Si confirmamos que el correo ya existe, pues enviamos al usuario a iniciar sesión*/	
+					/*Si confirmamos que el correo ya existe, pues enviamos al usuario a iniciar sesi?n*/	
 					if(k == longitud_correo)
 					{
 						printf("\nYa existe una cuenta con este correo\n");
@@ -339,9 +332,9 @@ int CrearCuenta()
 			fprintf(pf1,"%s\n", CCusuario.CCPersona.correo);
 			
 			
-			/*CONTRASEÑA DEL CORREO*/
+			/*CONTRASE?A DEL CORREO*/
 			
-			/*Creamos y abrimos un fichero donde almacenaremos las contraseñas y correos de los usuarios, se utilizará para el INICIO DE SESIÓN*/
+			/*Creamos y abrimos un fichero donde almacenaremos las contrase?as y correos de los usuarios, se utilizar? para el INICIO DE SESI?N*/
 			FILE *pf3;
 			pf3 = fopen("Ficheros/Crear_Cuenta_contrasena.txt","a");
 			
@@ -364,7 +357,7 @@ int CrearCuenta()
 				}
 				int longitud1 = i;
 				
-				/*Hacemos que la contraseña solo pueda tener letras y numeros*/
+				/*Hacemos que la contrase?a solo pueda tener letras y numeros*/
 				while(CCusuario.CCPersona.contrasena[j] != '\0')
 				{
 					if(((CCusuario.CCPersona.contrasena[j] < 48) || (CCusuario.CCPersona.contrasena[j] > 57)) && ((CCusuario.CCPersona.contrasena[j] < 65) || (CCusuario.CCPersona.contrasena[j] > 90)) && ((CCusuario.CCPersona.contrasena[j] < 97) || (CCusuario.CCPersona.contrasena[j] > 122)))
@@ -381,7 +374,7 @@ int CrearCuenta()
 					j++;
 				}
 							
-				/*Simplemente por hacerlo algo más real imprimimos (*) en lugar de la contraseña*/
+				/*Simplemente por hacerlo algo m?s real imprimimos (*) en lugar de la contrase?a*/
 				printf("Contrasena: ");
 				for(k = 0 ; k < longitud1 ; k++)
 				{
@@ -397,7 +390,7 @@ int CrearCuenta()
 			
 		/*NOMBRE APELLIDO1 APELLIDO2*/
 			
-		/*Pedimos al usuario el primer apellido, en el caso de poner cualquier otra cosa que no sea una letra saltaría ERROR*/
+		/*Pedimos al usuario el primer apellido, en el caso de poner cualquier otra cosa que no sea una letra saltar?a ERROR*/
 		printf("\n\n-Primer Apellido: ");
 		scanf("%s", &CCusuario.usuario.primer_apellido);
 		
@@ -417,7 +410,7 @@ int CrearCuenta()
 		i++;
 		}
 			
-		/*Pedimos al usuario el segundo apellido, en el caso de poner cualquier otra cosa que no sea una letra saltaría ERROR*/
+		/*Pedimos al usuario el segundo apellido, en el caso de poner cualquier otra cosa que no sea una letra saltar?a ERROR*/
 		printf("-Segundo Apellido: ");
 		scanf("%s", CCusuario.usuario.segundo_apellido);
 			
@@ -437,7 +430,7 @@ int CrearCuenta()
 			i++;
 		}
 		
-		/*Pedimos al usuario el nombre, en el caso de poner cualquier otra cosa que no sea un aletra saltaría ERROR*/
+		/*Pedimos al usuario el nombre, en el caso de poner cualquier otra cosa que no sea un aletra saltar?a ERROR*/
 		printf("-Nombre: ");
 		scanf("%s", CCusuario.usuario.nombre);
 		
@@ -466,7 +459,7 @@ int CrearCuenta()
 		
 		printf("\n\n-Fecha de nacimiento");
 		
-		/*Pedimos que Introduzca el Año*/
+		/*Pedimos que Introduzca el A?o*/
 		do
 		{
 			printf("\nAno: ");
@@ -479,10 +472,10 @@ int CrearCuenta()
 		}
 		while((CCusuario.fecha.ano < 1923) || (CCusuario.fecha.ano > 2023));
 			
-		/*Comprobamos si el aï¿½o de su nacimiento es Bisiesto*/
-		/*Cubrimos todos los casos en caso de aï¿½os bisiestos o no, es decir, solo se permiten fechas reales*/
+		/*Comprobamos si el a?o de su nacimiento es Bisiesto*/
+		/*Cubrimos todos los casos en caso de a?os bisiestos o no, es decir, solo se permiten fechas reales*/
 		
-		if((CCusuario.fecha.ano % 4 == 0) && (CCusuario.fecha.ano % 100 != 0) || (CCusuario.fecha.ano % 400 == 0))/*Si el aï¿½o es bisiesto*/
+		if((CCusuario.fecha.ano % 4 == 0) && (CCusuario.fecha.ano % 100 != 0) || (CCusuario.fecha.ano % 400 == 0))/*Si el a?o es bisiesto*/
 		{
 			/*Pedimos que Introduzca el Mes*/
 			do
@@ -688,7 +681,7 @@ int CrearCuenta()
 					}
 			}
 		}
-		else /*Si el año no es Bisiesto*/
+		else /*Si el a?o no es Bisiesto*/
 		{
 			/*Pedimos que Introduzca el Mes*/
 			do
@@ -900,7 +893,7 @@ int CrearCuenta()
 			
 			
 		/*DNI*/
-		/*Exigimos que tenga el tamaño real de un numero de DNI*/
+		/*Exigimos que tenga el tama?o real de un numero de DNI*/
 		do
 		{
 			printf("\n\n-Introduce la parte numerica de tu DNI");
@@ -938,7 +931,7 @@ int CrearCuenta()
 		fprintf(pf,"%i %c;",CCusuario.persona.parte_numerica, CCusuario.persona.letra);
 		
 		
-		/*PROVINCIA Y CÓDIGO POSTAL*/
+		/*PROVINCIA Y C?DIGO POSTAL*/
 			
 		do
 		{
@@ -957,7 +950,7 @@ int CrearCuenta()
 		printf("\nCodigo Postal: %s", CCusuario.cp);
 		fprintf(pf,"%s;",CCusuario.cp);
 		
-		/*Declaramos las variables de seleccion que utilizaremos a continuación*/
+		/*Declaramos las variables de seleccion que utilizaremos a continuaci?n*/
 		int selec1, selec2, selec3, selec4, selec5, selec6, selec7, selec8, selec9;
 		int selec10, selec11, selec12, selec13, selec14, selec15, selec16, selec17, selec18, selec19;
 		int selec20, selec21, selec22, selec23, selec24, selec25, selec26, selec27, selec28, selec29;
@@ -965,7 +958,7 @@ int CrearCuenta()
 		int selec40, selec41, selec42, selec43, selec44, selec45, selec46, selec47, selec48, selec49;
 		int selec50, selec51, selec52;
 		
-		/*Sabemos que cada proviancia española tiene un inicio de codigo postal diferente, segun el codigo postal que meta el usuario, preguntamos si reside en la provincia corrspondiente*/
+		/*Sabemos que cada proviancia espa?ola tiene un inicio de codigo postal diferente, segun el codigo postal que meta el usuario, preguntamos si reside en la provincia corrspondiente*/
 		if(CCusuario.cp[0] == '0')
 		{	
 			if(CCusuario.cp[1] == '1')
@@ -2627,7 +2620,7 @@ int CrearCuenta()
 
 int IniciarSesion()
 {
-	/*Abrimos el fichero en modo solo lectura, aqui comprobaremos si el correo y la contraseï¿½a introducida ya estan registradas*/
+	/*Abrimos el fichero en modo solo lectura, aqui comprobaremos si el correo y la contrase?a introducida ya estan registradas*/
 	FILE *pf5;
 	pf5 = fopen("Ficheros/Crear_Cuenta_contrasena.txt","r");
 		
@@ -2711,7 +2704,7 @@ int IniciarSesion()
 				k = 0;
 					
 					
-				/*Medimos la longitud de la contraseï¿½a introducida por el usuario*/
+				/*Medimos la longitud de la contrase?a introducida por el usuario*/
 					
 				while(ISusuario.ISpersona.contrasena[k] != '\0')
 				{
@@ -2720,7 +2713,7 @@ int IniciarSesion()
 				int longitud_contrasena = k;
 				
 					
-				/*Comenzamos el bucle para comprobar si la contraseï¿½a introducida por el usuario es correcta*/
+				/*Comenzamos el bucle para comprobar si la contrase?a introducida por el usuario es correcta*/
 				
 				for(i = 0 ; i < longitud_contrasena ; i++)
 				{
@@ -2731,7 +2724,7 @@ int IniciarSesion()
 					
 				}
 					
-				/*Observamos que serï¿½ correcta si el valor que tenemos en longitud_contrasena es igual al valor de i*/
+				/*Observamos que ser? correcta si el valor que tenemos en longitud_contrasena es igual al valor de i*/
 					
 				if(longitud_contrasena == i)
 				{
@@ -2739,7 +2732,7 @@ int IniciarSesion()
 					comprobacion = 1;
 					menu();
 				}
-				/*Si la contraseï¿½a introducida no es correcta, el usuario tiene tres intentos para escribirla bien*/
+				/*Si la contrase?a introducida no es correcta, el usuario tiene tres intentos para escribirla bien*/
 				else
 				{
 					printf("CONTRASENA INCORRECTA\n\n");
@@ -2748,7 +2741,7 @@ int IniciarSesion()
 				}
 				c++;
 			}
-			/*Si en esos tres intentos no la pone bien el programa le expulsarï¿½ del INICIO DE SESIï¿½N*/
+			/*Si en esos tres intentos no la pone bien el programa le expulsar? del INICIO DE SESI?N*/
 			while((comprobacion != 1) && (c < 3));
 			return 0;
 		}
@@ -2799,7 +2792,7 @@ void cambio_mayusculas(char nombre[], char apellido1[], char apellido2[])
 }
 
 
-/*Una vez finalizado el Inicio de sesiónn llevamos al usuario al menu*/
+/*Una vez finalizado el Inicio de sesi?nn llevamos al usuario al menu*/
 int menu()
 {
 	int seleccion;
@@ -2919,24 +2912,8 @@ void f_comparacion () /*Funcion Comparacion*/
 
     switch (eleccion_comparacion) /* Switch para la Eleccion de Datos a Comparar (Meses | Anios)*/
     {
-        case 'a': /*Datos Anuales */
+        case 'a': // Parte de Alvaro//
         {
-<<<<<<< HEAD
-        	
-=======
-        	/* Selección del primer año para comparar */
-         void solicitarAnios(int *anio1, int *anio2) {
-           do {
-         printf("Ingrese el primer año entre 2007 y 2023: ");
-         scanf("%d", anio1);
-           } while (*anio1 < 2007 || *anio1 > 2023);
-            /* Selección del segundo año para comparar*/
-            do {
-         printf("Ingrese el segundo año entre 2007 y 2023: ");
-         scanf("%d", anio2);
-        } while (*anio2 < 2007 || *anio2 > 2023);
-}
->>>>>>> 7d12c0bd2fb601fff9c9f8716af2644deb71820d
             break;
         }
         
@@ -2964,7 +2941,7 @@ void f_comparacion () /*Funcion Comparacion*/
 
             do
             {
-                do /* Seleccion del Año del Segundo Mes */
+                do /* Seleccion del A?o del Segundo Mes */
                 {
                     printf("Seleccione en que anio se encuentra el otro mes que quiere comparar: \n");
                     printf("No seleccione el mismo mes que ha seleccionado anteriormente. \n");
@@ -3112,93 +3089,6 @@ void f_comparacion () /*Funcion Comparacion*/
             break;
         }
 	}
-}
-
-/* Con los años seleccionados imprimira la siguiente información */
-void imprimirInformacion(FILE *archivo) {
-    int numero, numero2, numero3, numero4, numero5, numero6, numero7, numero8, numero9, numero10, numero11, numero12, numero13, numero14, numero15, numero16, numero17, numero18, numero19;
-    fscanf(archivo, "%d", &numero);
-    printf("Hidraulica: %d\n", numero);
-
-    fscanf(archivo, "%d", &numero2);
-    printf("Eolica: %d\n", numero2);
-
-    fscanf(archivo, "%d", &numero3);
-    printf("Solar Fotovoltaiva: %d\n", numero3);
-
-    fscanf(archivo, "%d", &numero4);
-    printf("Solar Termica: %d\n", numero4);
-    
-    fscanf(archivo, "%d", &numero5);
-    printf("Hidroelectrica: %d\n", numero5);
-    
-    fscanf(archivo, "%d", &numero6);
-    printf("Otras Renovables: %d\n", numero6);
-
-    fscanf(archivo, "%d", &numero7);
-    printf("Resiudos Renovables: %d\n\n", numero7);
-
-    fscanf(archivo, "%d", &numero8);
-    printf("Generacion Renovable: %d\n\n\n", numero8);
-
-    fscanf(archivo, "%d", &numero9);
-    printf("Turbinacion Bombeo: %d\n", numero9);
-
-    fscanf(archivo, "%d", &numero10);
-    printf("Nuclear: %d\n", numero10);
-
-    fscanf(archivo, "%d", &numero11);
-    printf("Ciclo Bombeado: %d\n", numero11);
-
-    fscanf(archivo, "%d", &numero12);
-    printf("Carbon: %d\n", numero12);
-
-    fscanf(archivo, "%d", &numero13);
-    printf("Motores Diesel: %d\n", numero13);
-
-    fscanf(archivo, "%d", &numero14);
-    printf("Turbina de Gas: %d\n", numero14);
-
-    fscanf(archivo, "%d", &numero15);
-    printf("Turbina de Vapor: %d\n", numero15);
-
-    fscanf(archivo, "%d", &numero16);
-    printf("Fuel Gas: %d\n", numero16);
-
-    fscanf(archivo, "%d", &numero17);
-    printf("Cogeneracion: %d\n", numero17);
-
-    fscanf(archivo, "%d", &numero18);
-    printf("Residuos no renovables: %d\n\n", numero18);
-
-    fscanf(archivo, "%d", &numero19);
-    printf("Generacion no renovable: %d\n\n\n", numero19);
-
-    printf("\n");
-}
-
-/* La información será extrída al abrir su fichero correspondiente */ 
-void AniosFicheros(int anio1, int anio2) {
-    char ruta1[100], ruta2[100];
-    sprintf(ruta1, "C:\\Users\\user2\\Desktop\\FicherosAnios\\%d.txt", anio1);
-    sprintf(ruta2, "C:\\Users\\user2\\Desktop\\FicherosAnios\\%d.txt", anio2);
-
-    FILE *archivo1 = fopen(ruta1, "r");
-    FILE *archivo2 = fopen(ruta2, "r");
-
-    if (archivo1 == NULL || archivo2 == NULL) {
-        printf("No se pudieron abrir uno o ambos archivos.\n");
-        return;
-    }
-
-    printf("\nInformación de la producción del año %d:\n\n", anio1);
-    imprimirInformacion(archivo1);
-
-    printf("Información de la producción del año %d:\n\n", anio2);
-    imprimirInformacion(archivo2);
-
-    fclose(archivo1);
-    fclose(archivo2);
 }
 
 void f_comparacion_menu (char *eleccion_comparacion) /*Funcion Menu de Comparaciones*/ /*Esta dentro de una funcion para evitar que se produzca un bug de duplicado*/
@@ -6971,7 +6861,7 @@ void predicciones()
 						j=0;
 						
 						
-						//hasta aquí se guardan los datos en vectores, por filas, luego se hara el fichero de una linea
+						//hasta aqu? se guardan los datos en vectores, por filas, luego se hara el fichero de una linea
 						while(conttrabajado_e<=contfilas_e-1)
 						{
 							fichero=fopen("Ficheros_Predicciones/emisiones_y_factor_de_emision_(1).csv","w");
@@ -6983,8 +6873,8 @@ void predicciones()
 								
 										if (error == 1) 
 								{
-							        printf("Ocurrió un error en la función predicciones.\n");
-							        return; // Retorna sin hacer nada más
+							        printf("Ocurri? un error en la funci?n predicciones.\n");
+							        return; // Retorna sin hacer nada m?s
 							    }
 								
 								fprintf(fichero,"%s",lectores0_e[o].lector0_e);
@@ -7034,8 +6924,8 @@ void predicciones()
 								
 										if (error == 1) 
 								{
-							        printf("Ocurrió un error en la función predicciones.\n");
-							        return; // Retorna sin hacer nada más
+							        printf("Ocurri? un error en la funci?n predicciones.\n");
+							        return; // Retorna sin hacer nada m?s
 							    }
 								
 								fprintf(fichero,"%s",lectores0_e[o].lector0_e);
@@ -7093,8 +6983,8 @@ void predicciones()
 							
 									if (error == 1) 
 								{
-							        printf("Ocurrió un error en la función predicciones.\n");
-							        return; // Retorna sin hacer nada más
+							        printf("Ocurri? un error en la funci?n predicciones.\n");
+							        return; // Retorna sin hacer nada m?s
 							    }
 							
 							fprintf(fichero,"%s",lector2);
@@ -7114,7 +7004,7 @@ void predicciones()
 							    
 								    if (error == 1) 
 							{
-						        printf("Ocurrió un error en la función predicciones.\n");
+						        printf("Ocurri? un error en la funci?n predicciones.\n");
 						        return;
 						    }
 							
@@ -7164,7 +7054,7 @@ void predicciones()
 						
 							if (error == 1) 
 							{
-						        printf("Ocurrió un error en la función predicciones.\n");
+						        printf("Ocurri? un error en la funci?n predicciones.\n");
 						        return;
 						    }
 						
@@ -7325,7 +7215,7 @@ void predicciones()
 							break;
 						}
 						printf("\n\n");
-				    	} while (strcmp(menu0,"ñ")!=0);
+				    	} while (strcmp(menu0,"?")!=0);
 						
 						//final
 						if (error == 1) 
@@ -7652,7 +7542,7 @@ void predicciones()
 						j=0;
 						
 						
-						//hasta aquí se guardan los datos en vectores, por filas, luego se hara el fichero de una linea
+						//hasta aqu? se guardan los datos en vectores, por filas, luego se hara el fichero de una linea
 						while(conttrabajado_e<=contfilas_e-1)
 						{
 							fichero=fopen("Ficheros_Predicciones/generacion_por_tecnologias_21_22(1).csv","w");
@@ -7664,8 +7554,8 @@ void predicciones()
 								
 										if (error == 1) 
 								{
-							        printf("Ocurrió un error en la función predicciones.\n");
-							        return; // Retorna sin hacer nada más
+							        printf("Ocurri? un error en la funci?n predicciones.\n");
+							        return; // Retorna sin hacer nada m?s
 							    }
 								
 								fprintf(fichero,"%s",lectores0_e[o].lector0_e);
@@ -7715,8 +7605,8 @@ void predicciones()
 								
 										if (error == 1) 
 								{
-							        printf("Ocurrió un error en la función predicciones.\n");
-							        return; // Retorna sin hacer nada más
+							        printf("Ocurri? un error en la funci?n predicciones.\n");
+							        return; // Retorna sin hacer nada m?s
 							    }
 								
 								fprintf(fichero,"%s",lectores0_e[o].lector0_e);
@@ -7774,8 +7664,8 @@ void predicciones()
 							
 									if (error == 1) 
 								{
-							        printf("Ocurrió un error en la función predicciones.\n");
-							        return; // Retorna sin hacer nada más
+							        printf("Ocurri? un error en la funci?n predicciones.\n");
+							        return; // Retorna sin hacer nada m?s
 							    }
 							
 							fprintf(fichero,"%s",lector2);
@@ -7794,7 +7684,7 @@ void predicciones()
 							    
 								    if (error == 1) 
 							{
-						        printf("Ocurrió un error en la función predicciones.\n");
+						        printf("Ocurri? un error en la funci?n predicciones.\n");
 						        return;
 						    }
 							
@@ -7841,7 +7731,7 @@ void predicciones()
 						
 							if (error == 1) 
 							{
-						        printf("Ocurrió un error en la función predicciones.\n");
+						        printf("Ocurri? un error en la funci?n predicciones.\n");
 						        return;
 						    }
 						
@@ -8002,7 +7892,7 @@ void predicciones()
 							break;
 						}
 						printf("\n\n");
-				    	} while (strcmp(menu0,"ñ")!=0);
+				    	} while (strcmp(menu0,"?")!=0);
 						
 						//final
 						if (error == 1) 
@@ -8038,5 +7928,5 @@ void predicciones()
 	}
 	printf("\n\n");
 	}
-	while (strcmp(menu00,"ñ")!=0);
+	while (strcmp(menu00,"?")!=0);
 }
