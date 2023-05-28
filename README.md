@@ -6,13 +6,13 @@ El ususario de nuestro código tiene acceso a una información extraida desde [R
 
 ## Integrantes del equipo
 
-Gonzalo Morcilo Garcia
+Gonzalo Morcilo Garcia EE-105
 
-Jose Eduardo Arauz Yllanez
+Jose Eduardo Arauz Yllanez EE-105
 
-David Cano Pérez
+David Cano Pérez E-105
 
-Álvaro Cuesta Sanz
+Álvaro Cuesta Sanz E-105
 
 ## Objetivos del trabajo
 
