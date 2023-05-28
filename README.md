@@ -7,8 +7,11 @@ El ususario de nuestro código tiene acceso a una información extraida desde [R
 ## Integrantes del equipo
 
 Gonzalo Morcilo Garcia
+
 Jose Eduardo Arauz Yllanez
+
 David Cano Pérez
+
 Álvaro Cuesta Sanz
 
 ## Objetivos del trabajo
