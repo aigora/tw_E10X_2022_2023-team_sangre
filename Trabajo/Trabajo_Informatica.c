@@ -136,6 +136,14 @@ void f_comparacion_ficheros (int anio_mes_void, int mes_void, int *hidraulica_0,
 /*Funcion para predicciones*/
 void predicciones();
 
+/*Funciones Álvaro*/
+/*Función pedir que años comprar al usuario*/
+void solicitarAnios(int *anio1, int *anio2);
+/*Función redactar información ficheros*/
+void imprimirInformacion(FILE *archivo);
+/*Función abrir ficheros anios*/
+void AniosFicheros(int anio1, int anio2);
+
 
 //COMIENZO CON EL CREAR CUENTA O INICIO DE SESION
 int main()
@@ -2911,9 +2919,24 @@ void f_comparacion () /*Funcion Comparacion*/
 
     switch (eleccion_comparacion) /* Switch para la Eleccion de Datos a Comparar (Meses | Anios)*/
     {
-        case 'a': // Parte de Alvaro//
+        case 'a': /*Datos Anuales */
         {
+<<<<<<< HEAD
         	
+=======
+        	/* Selección del primer año para comparar */
+         void solicitarAnios(int *anio1, int *anio2) {
+           do {
+         printf("Ingrese el primer año entre 2007 y 2023: ");
+         scanf("%d", anio1);
+           } while (*anio1 < 2007 || *anio1 > 2023);
+            /* Selección del segundo año para comparar*/
+            do {
+         printf("Ingrese el segundo año entre 2007 y 2023: ");
+         scanf("%d", anio2);
+        } while (*anio2 < 2007 || *anio2 > 2023);
+}
+>>>>>>> 7d12c0bd2fb601fff9c9f8716af2644deb71820d
             break;
         }
         
@@ -3089,6 +3112,93 @@ void f_comparacion () /*Funcion Comparacion*/
             break;
         }
 	}
+}
+
+/* Con los años seleccionados imprimira la siguiente información */
+void imprimirInformacion(FILE *archivo) {
+    int numero, numero2, numero3, numero4, numero5, numero6, numero7, numero8, numero9, numero10, numero11, numero12, numero13, numero14, numero15, numero16, numero17, numero18, numero19;
+    fscanf(archivo, "%d", &numero);
+    printf("Hidraulica: %d\n", numero);
+
+    fscanf(archivo, "%d", &numero2);
+    printf("Eolica: %d\n", numero2);
+
+    fscanf(archivo, "%d", &numero3);
+    printf("Solar Fotovoltaiva: %d\n", numero3);
+
+    fscanf(archivo, "%d", &numero4);
+    printf("Solar Termica: %d\n", numero4);
+    
+    fscanf(archivo, "%d", &numero5);
+    printf("Hidroelectrica: %d\n", numero5);
+    
+    fscanf(archivo, "%d", &numero6);
+    printf("Otras Renovables: %d\n", numero6);
+
+    fscanf(archivo, "%d", &numero7);
+    printf("Resiudos Renovables: %d\n\n", numero7);
+
+    fscanf(archivo, "%d", &numero8);
+    printf("Generacion Renovable: %d\n\n\n", numero8);
+
+    fscanf(archivo, "%d", &numero9);
+    printf("Turbinacion Bombeo: %d\n", numero9);
+
+    fscanf(archivo, "%d", &numero10);
+    printf("Nuclear: %d\n", numero10);
+
+    fscanf(archivo, "%d", &numero11);
+    printf("Ciclo Bombeado: %d\n", numero11);
+
+    fscanf(archivo, "%d", &numero12);
+    printf("Carbon: %d\n", numero12);
+
+    fscanf(archivo, "%d", &numero13);
+    printf("Motores Diesel: %d\n", numero13);
+
+    fscanf(archivo, "%d", &numero14);
+    printf("Turbina de Gas: %d\n", numero14);
+
+    fscanf(archivo, "%d", &numero15);
+    printf("Turbina de Vapor: %d\n", numero15);
+
+    fscanf(archivo, "%d", &numero16);
+    printf("Fuel Gas: %d\n", numero16);
+
+    fscanf(archivo, "%d", &numero17);
+    printf("Cogeneracion: %d\n", numero17);
+
+    fscanf(archivo, "%d", &numero18);
+    printf("Residuos no renovables: %d\n\n", numero18);
+
+    fscanf(archivo, "%d", &numero19);
+    printf("Generacion no renovable: %d\n\n\n", numero19);
+
+    printf("\n");
+}
+
+/* La información será extrída al abrir su fichero correspondiente */ 
+void AniosFicheros(int anio1, int anio2) {
+    char ruta1[100], ruta2[100];
+    sprintf(ruta1, "C:\\Users\\user2\\Desktop\\FicherosAnios\\%d.txt", anio1);
+    sprintf(ruta2, "C:\\Users\\user2\\Desktop\\FicherosAnios\\%d.txt", anio2);
+
+    FILE *archivo1 = fopen(ruta1, "r");
+    FILE *archivo2 = fopen(ruta2, "r");
+
+    if (archivo1 == NULL || archivo2 == NULL) {
+        printf("No se pudieron abrir uno o ambos archivos.\n");
+        return;
+    }
+
+    printf("\nInformación de la producción del año %d:\n\n", anio1);
+    imprimirInformacion(archivo1);
+
+    printf("Información de la producción del año %d:\n\n", anio2);
+    imprimirInformacion(archivo2);
+
+    fclose(archivo1);
+    fclose(archivo2);
 }
 
 void f_comparacion_menu (char *eleccion_comparacion) /*Funcion Menu de Comparaciones*/ /*Esta dentro de una funcion para evitar que se produzca un bug de duplicado*/
