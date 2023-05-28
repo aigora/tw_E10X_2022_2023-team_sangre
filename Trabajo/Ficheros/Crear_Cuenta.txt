@@ -1,3 +1,4 @@
 david1@gmail.com;david1;DAVIDCANOPEREZ;16/4/2004;75899753 J;35625;Las Palmas;
 david2@gmail.com;david2;DAVIDCANOPEREZ;16/4/2004;12345678 H;28008;Madrid;
 gonzalomorcillo8@gmail.com;Morcillo8;GONZALOMORCILLOGARCIA;8/11/2004;50567435 A;28300;Madrid;
+eduardo0315l@gmail.com;soyedu03;EDUARDOARAUZYLLANEZ;3/6/2003;51745979 G;28043;Madrid;
