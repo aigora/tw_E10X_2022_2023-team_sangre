@@ -6747,8 +6747,8 @@ void predicciones()
 			            r++;
 			        }
 			    }
-			    printf("\nmedia de dias = %f", mediax);
-			    printf("\nmedia de emision = %f", mediay);
+			    printf("\nmedia de dias = %f dias", mediax);
+			    printf("\nmedia de emision = %f tCO2 eq./MWh", mediay);
 			    printf("\npendiente recta = %f", pendiente);
 			    printf("\nb = %f\n\n", b);
 							i=0;
@@ -7229,7 +7229,677 @@ void predicciones()
 				
 				
 				
-				
+				//predicciones evolucion potencia instalada
+				void prediccionesevpi()
+			{
+				char menu00[20];
+					//
+					
+					void imprimirDatos(energias energia1[], int numDatos,int indice) 
+					{
+					    char* meses[12] = {"enero", "febrero", "marzo", "abril", "mayo", "junio",
+					                       "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"};
+						int q=0,r=1;
+						
+						printf("Evolucion mensual de: %s\n\n",energia1[indice].nombre);
+					    for (q = 0;q<numDatos;q++) 
+						{
+					        printf("%s 202%i: %f 0/0\n", meses[q % 12],r,energia1[indice].datos[q]);
+					        if(q==11)
+					        {
+					        	r++;
+							}
+					    }
+					    q=0;
+					    printf("\n\n");
+					}
+					
+					void imprimirDatosPredicciones(energias energia1[],int numDatos,int indice) 
+					{
+					    char* meses[12] = {"enero", "febrero", "marzo", "abril", "mayo", "junio",
+					                       "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"};
+						int q=0,r=1;
+						
+						printf("\nEvolucion mensual de: %s\n\n",energia1[indice].nombre);
+					    for (q = 0;q<numDatos;q++) 
+						{
+					        printf("%s 202%i: %f 0/0\n", meses[q % 12],r,energia1[indice].datos[q]);
+					        if(q==11)
+					        {
+					        	r++;
+							}
+					    }
+					    q=0;
+					    printf("\n\n");
+					}
+					
+					void errorabsolutomedio(energias energia1[], int indice, int fechas) 
+					{
+					    float vector2021[100];
+					    float vector2022[100];
+					    int z = 0,w=0;
+					    float errorabsolutomedio = 0,dif=0;
+					    double sumerrores=0;
+					
+					    for (z = 0; z < fechas; z++) 
+						{
+					        if (z < fechas / 2 ) 
+							{
+					            vector2021[z] = energia1[indice].datos[z];
+					            //printf("vector2021 %f\n",vector2021[z]);
+					        }
+					        if (z > fechas / 2 + 1||z==fechas/2) 
+							{
+					            break;
+					        }
+					    }
+					    
+					    for (w=0,z = z; z<fechas,w<fechas/2; z++,w++)
+						{
+							if (z < fechas) 
+							{
+					            vector2022[w] = energia1[indice].datos[z];
+					            //printf("vector2022 %f\n",vector2022[z]);
+					        }
+						} 
+						w=0;
+					
+					    for (z = 0; z < fechas / 2; z++) 
+						{
+							dif=vector2021[z]-vector2022[z];
+					        sumerrores=sumerrores+fabs(vector2021[z]-vector2022[z]);
+					        //printf("\nsumaerrore %lf",dif);
+					    }
+					    z=0;
+					    errorabsolutomedio=sumerrores/(fechas/2.0);
+					    printf("\nEl error medio absoluto de %s 2021-2022 = %lf 0/0\n\n", energia1[indice].nombre, errorabsolutomedio);
+					}
+					
+				void errorabsolutomedio2023(energias energia1[], int indice, int fechas)
+			{
+			    int i = 0, q = 0, r = 2023;
+			    char* meses[12] = {"enero", "febrero", "marzo", "abril", "mayo", "junio",
+			                       "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"};
+			    float sumy = 0, sumx = 0, xpory = 0, sumxcuadrado = 0, mediax = 0, mediay = 0, pendiente = 0, b = 0;
+				float errorabsolutomedio = 0,dif=0;
+			    for (i = 0; i < fechas; i++) {
+			        sumy += energia1[indice].datos[i];
+			    }
+			    
+			    //printf("\nsumy = %f", sumy);
+			
+			    for (i = 1; i <= fechas; i++) 
+				{
+			        sumx += i;
+			    }
+			
+			    //printf("\nsumx = %f", sumx);
+			
+			    for (i = 1, q = 0; i <= fechas && q < fechas; i++, q++) {
+			        xpory += i * energia1[indice].datos[q];
+			    }
+			
+			    //printf("\nx por y = %f", xpory);
+			
+			    for (i = 1; i <= fechas; i++) {
+			        sumxcuadrado += i * i;
+			    }
+			
+			    //printf("\nsumxcuadrado = %f", sumxcuadrado);
+			
+			    mediax = sumx / fechas;
+			
+			    mediay = sumy / fechas;
+			
+			    pendiente = (xpory - (sumx * sumy / fechas)) / (sumxcuadrado - (sumx * sumx / fechas));
+			
+			    b = mediay - pendiente * mediax;
+			    
+			    for(q=0;q<fechas;q++)
+			    {
+			    	dif=dif+fabs(energia1[indice].datos[q]-(pendiente*(q + 1) + b));
+			    	
+				}
+				errorabsolutomedio=dif/fechas;
+				printf("\nEl error medio absoluto de %s 2023-2022 = %lf 0/0\n\n", energia1[indice].nombre, errorabsolutomedio);
+			    
+							i=0;
+							q=0;
+							pendiente=0;
+							b=0;
+							mediax=0;
+							mediay=0;
+							xpory=0;
+							sumx=0;
+							sumy=0;
+							sumxcuadrado=0;
+			}	
+					
+				void rectaregresion(energias energia1[], int indice, int fechas)
+			{
+			    int i = 0, q = 0, r = 2023;
+			    char* meses[12] = {"enero", "febrero", "marzo", "abril", "mayo", "junio",
+			                       "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"};
+			    float sumy = 0, sumx = 0, xpory = 0, sumxcuadrado = 0, mediax = 0, mediay = 0, pendiente = 0, b = 0;
+			
+			    for (i = 0; i < fechas; i++) {
+			        sumy += energia1[indice].datos[i];
+			    }
+			    
+			    //printf("\nsumy = %f", sumy);
+			
+			    for (i = 1; i <= fechas; i++) 
+				{
+			        sumx += i;
+			    }
+			
+			    //printf("\nsumx = %f", sumx);
+			
+			    for (i = 1, q = 0; i <= fechas && q < fechas; i++, q++) {
+			        xpory += i * energia1[indice].datos[q];
+			    }
+			
+			    //printf("\nx por y = %f", xpory);
+			
+			    for (i = 1; i <= fechas; i++) {
+			        sumxcuadrado += i * i;
+			    }
+			
+			    //printf("\nsumxcuadrado = %f", sumxcuadrado);
+			
+			    mediax = sumx / fechas;
+			
+			    mediay = sumy / fechas;
+			
+			    pendiente = (xpory - (sumx * sumy / fechas)) / (sumxcuadrado - (sumx * sumx / fechas));
+			
+			    b = mediay - pendiente * mediax;
+			    
+			
+			    printf("\n\n%s en 2023: \n", energia1[indice].nombre);
+			    printf("\nEvolucion mensual de: %s\n\n", energia1[indice].nombre);
+			
+			    for (q = 0; q < fechas; q++) 
+				{
+			        printf("%s 2023: %f 0/0\n", meses[q % 12], pendiente * (q + 1) + b);
+			        if (q == 11) {
+			            r++;
+			        }
+			    }
+			    printf("\nmedia de dias = %f dias", mediax);
+			    printf("\nmedia de evolucion de  potencia instalada= %f 0/0", mediay);
+			    printf("\npendiente recta = %f", pendiente);
+			    printf("\nb = %f\n\n", b);
+							i=0;
+							q=0;
+							pendiente=0;
+							b=0;
+							mediax=0;
+							mediay=0;
+							xpory=0;
+							sumx=0;
+							sumy=0;
+							sumxcuadrado=0;
+			}	
+					
+						lectores_e lectores0_e[20];
+						prediccion predicciones[20];
+						energias energia[20];
+						FILE*fichero;
+						char opcion6[20],lector_0_e[10000],lectorfechas_e[300],lector[10000],lector2[5000],copia1[5000],copiareal[10000],menu[20],menu0[20],opcion1[20],opcion2[20],opcion3[20],opcion4[20],opcion5[20];
+						int error=0,i=0,j=0,contpuntos=0,contfechas_e=0,contfilas_e=0,energiastot_e=0,energiapredecir=0,conttrabajado_e=0,k=0,l=0,m=0,o=0,p=0;
+						float num[100];
+						
+						
+						fichero=fopen("Ficheros_Predicciones/evolucion_potencia_instalada.csv","r");
+						if(fichero==NULL)
+						{
+							printf("no abierto correctamente");
+							error=1;
+						}
+						
+						while(fscanf(fichero,"%c",&lector_0_e[i])!=EOF)
+						{
+							i++;
+						}
+						lector_0_e[i]='\0';
+						//printf("%s",lector);
+						if(fichero!=NULL)
+						{
+						fclose(fichero);
+						}
+						
+						for(i=0;i<strlen(lector_0_e);i++)
+						{
+							lectorfechas_e[i]=lector_0_e[i];
+							if(lector_0_e[i]=='\n')
+							{
+								lectorfechas_e[i]='\n';
+								lectorfechas_e[i+1]='\0';
+								for(j=i+1;j<strlen(lector_0_e);j++)
+								{
+									lector[k]=lector_0_e[j];
+									k++;
+								}
+								lector[k]='\0';
+								break;
+							}
+						}
+						
+						for(i=0;i<strlen(lectorfechas_e);i++)
+						{
+							if(lectorfechas_e[i]==',')
+							{
+								contfechas_e++;
+							}
+						}
+						strcat(lectorfechas_e,lector);
+						strcpy(copiareal,lectorfechas_e);
+						k=0;
+						j=0;
+						k=0;
+						
+						//printf("Numero de meses analizados desde 2021 a 2022 = %i\n\n",contfechas_e);
+					
+						
+						
+						for(i=0;i<strlen(lector);i++)
+						{
+							lectores0_e[j].lector0_e[k]=lector[i];
+							if(lectores0_e[j].lector0_e[k]=='\n')
+							{
+								lectores0_e[j].lector0_e[k+1]='\0';
+								j++;
+								k=0;
+								contfilas_e++;
+								continue;
+							}
+							k++;
+						}
+						k=0;
+						i=0;
+						for(i=0;i<j;i++)
+						{
+							for(k=0;k<1000;k++)
+							{
+								if (lectores0_e[i].lector0_e[k]==' ')
+								{
+									lectores0_e[i].lector0_e[k]='_';
+								}
+								if (lectores0_e[i].lector0_e[k]=='\0')
+								{
+									k=0;
+									break;
+								}
+							}
+						}
+						
+						i=0;
+						k=0;
+						j=0;
+						
+						
+						//hasta aquí se guardan los datos en vectores, por filas, luego se hara el fichero de una linea
+						while(conttrabajado_e<=contfilas_e-1)
+						{
+							fichero=fopen("Ficheros_Predicciones/evolucion_potencia_instalada.csv","w");
+								if(fichero==NULL)
+								{
+									printf("no abierto correctamente");
+									error=1;
+								}
+								
+										if (error == 1) 
+								{
+							        printf("Ocurrió un error en la función predicciones.\n");
+							        return; // Retorna sin hacer nada más
+							    }
+								
+								fprintf(fichero,"%s",lectores0_e[o].lector0_e);
+								if(fichero!=NULL)
+								{
+								fclose(fichero);
+								}
+									
+								
+								for(i=0;i<strlen(lectores0_e[o].lector0_e);i++)
+							    {
+							    	if(lectores0_e[o].lector0_e[i]==',')
+							    	{
+							    		lectores0_e[o].lector0_e[i]='.';
+									}
+									if(lectores0_e[o].lector0_e[i]=='"')
+									{
+										lectores0_e[o].lector0_e[i]=' ';
+									}
+								}
+								lectores0_e[o].lector0_e[i]='\0';
+								
+								
+								for(i=0;i<strlen(lectores0_e[o].lector0_e);i++)
+								{
+									if(lectores0_e[o].lector0_e[i]==' ')
+									{
+										lectores0_e[o].lector0_e[i]='\n';
+									}
+								}
+								lectores0_e[o].lector0_e[i]='\0';
+							for(i=0;i<strlen(lectores0_e[o].lector0_e);i++)
+								{
+									if(lectores0_e[o].lector0_e[i]=='.')
+									{
+										contpuntos++;
+									}
+								}
+							
+								
+								fichero=fopen("Ficheros_Predicciones/evolucion_potencia_instalada.csv","w");
+								if(fichero==NULL)
+								{
+									printf("no abierto correctamente");
+									error=1;
+								}
+								
+										if (error == 1) 
+								{
+							        printf("Ocurrió un error en la función predicciones.\n");
+							        return; // Retorna sin hacer nada más
+							    }
+								
+								fprintf(fichero,"%s",lectores0_e[o].lector0_e);
+								if(fichero!=NULL)
+								{
+								fclose(fichero);
+								}
+								
+							fichero = fopen("Ficheros_Predicciones/evolucion_potencia_instalada.csv", "r");
+							if (fichero == NULL) 
+							{
+							    printf("Error al abrir el archivo\n");
+							    error=1;
+							}
+							
+							i = 0;
+							int num_puntos = 0;
+							while (fscanf(fichero, "%c", &lector2[i]) != EOF) 
+							{
+							    if (lector2[i] == '.') 
+								{
+							        contpuntos++;
+							    }
+							    i++;
+							}
+							lector2[i] = '\0';
+							if(fichero!=NULL)
+							{
+							fclose(fichero);
+							}
+							
+							
+							j = 1;
+							for (i = 0; i < strlen(lector2); i++) 
+							{
+							    if (lector2[i] == '.' && j % 2 == 1) 
+								{
+							        lector2[i] = ' ';
+							        j++;
+							    }
+								if (lector2[i] == '.') 
+								{
+							        j++;
+							    }
+							}
+							//printf("%s",lector2);
+							//hasta aqui es perfeccion
+							
+							fichero = fopen("Ficheros_Predicciones/evolucion_potencia_instalada.csv", "w");
+							if (fichero == NULL) 
+							{
+							    printf("Error al abrir el archivo\n");
+							    error=1;
+							}
+							
+									if (error == 1) 
+								{
+							        printf("Ocurrió un error en la función predicciones.\n");
+							        return; // Retorna sin hacer nada más
+							    }
+							
+							fprintf(fichero,"%s",lector2);
+							if(fichero!=NULL)
+							{
+							fclose(fichero);
+							}
+							
+							//sigue siendo bueno
+							fichero = fopen("Ficheros_Predicciones/evolucion_potencia_instalada.csv", "r");
+							    if (fichero == NULL) 
+								{
+							        printf("Error al abrir el archivo\n");
+							        error=1;
+							    }
+							    
+								    if (error == 1) 
+							{
+						        printf("Ocurrió un error en la función predicciones.\n");
+						        return;
+						    }
+							
+							    // Leer la primera palabra y almacenarla en la estructura
+							    fscanf(fichero, "%s", energia[0+l].nombre);
+								i=0;
+							    // Leer los datos y almacenarlos en el vector de la estructura
+							    while (fscanf(fichero, "%lf", &energia[0+l].datos[i]) != EOF) 
+								{
+							        i++;
+							    }
+							    if(fichero!=NULL)
+							    {
+							    fclose(fichero);
+								}
+								
+								for(k=0;k<strlen(energia[0+l].nombre);k++)
+								{
+									if(energia[0+l].nombre[k]=='_')
+									{
+										energia[0+l].nombre[k]=' ';
+									}
+								}
+								energia[0+l].nombre[k]='\0';
+								
+								
+								/*imprimirDatos(energia,contfechas_e,0+l);*/
+								
+								
+							conttrabajado_e++;
+							o++;
+							l++;
+							k=0;
+							energiastot_e=l;
+						}
+						
+						
+						fichero = fopen("Ficheros_Predicciones/evolucion_potencia_instalada.csv", "w");
+						if (fichero == NULL) 
+						{
+						    printf("Error al abrir el archivo\n");
+						    error=1;
+						}
+						
+							if (error == 1) 
+							{
+						        printf("Ocurrió un error en la función predicciones.\n");
+						        return;
+						    }
+						
+						fprintf(fichero,"%s",copiareal);
+						if(fichero!=NULL)
+						{
+						fclose(fichero);
+						}
+						//printf("energias totales analizadas = %i\n\n",energiastot_e);
+						i=0;
+						//analisis de fichero acaba aqui//
+						do 
+						{
+				        printf("\nBIENVENIDO A LA FUNCION DE PREDICCIONES\n\nEscoja una opcion:\n");
+				        printf("1. Mostrar datos disponibles\n2. Error absoluto medio de los datos de 2022 respecto 2021\n3. Predicciones para el anio 2023\n4. Volver al menu de predicciones\n\n");
+				        scanf(" %[^\n]",menu0);
+				        
+				        if(strcasecmp(menu0,"Opcion 1")==0||strcasecmp(menu0,"1")==0||strcasecmp(menu0,"Mostrar datos disponibles")==0)
+				        {
+				        	//printf("\nELIGIO OPCION 1\n\n");
+				        	printf("\n1. Mostrar todos los datos disponibles\n2. Elegir un tipo especifico\n");
+				        	scanf(" %[^\n]",opcion1);
+				        	
+				        	if(strcasecmp(opcion1,"1")==0||strcasecmp(opcion1,"todos los datos")==0||strcasecmp(opcion1,"todos los datos disponibles")==0||strcasecmp(opcion1,"mostrar todos los datos disponibles")==0||strcasecmp(opcion1,"todos los datos disponibles")==0||strcasecmp(opcion1,"los disponibles")==0)
+				        	{
+								for(i=0;i<energiastot_e;i++)
+								{
+									printf("\n");
+									imprimirDatos(energia,contfechas_e,0+i);
+								}
+								i=0;
+							}
+							
+							if(strcasecmp(opcion1,"2")==0||strcasecmp(opcion1,"Elegir un tipo especifico")==0||strcasecmp(opcion1,"un tipo especifico")==0||strcasecmp(opcion1,"especifico")==0)
+							{
+								printf("\n\nEscriba el nombre del tipo en especifico para mostrar en pantalla:\n\n");
+								for(i=0;i<energiastot_e;i++)
+								{
+									printf("%i. %s\n",i+1,energia[i].nombre);
+								} 
+								i=0;
+								printf("\n");
+								scanf(" %[^\n]",opcion2);
+								for(i=0;i<energiastot_e;i++)
+								{
+									if(strcasecmp(opcion2,energia[i].nombre)==0)
+									{
+										//printf("analizando: %i\n",i+1);
+										energiapredecir=i+1;
+										break;
+									}
+								}
+								
+								i=0;
+								energiapredecir--;
+								//printf("%s\n\n",energia[energiapredecir].nombre);
+								imprimirDatosPredicciones(energia,contfechas_e,energiapredecir);
+							}
+						}
+							
+						if(strcasecmp(menu0,"2")==0||strcasecmp(menu0,"Error")==0||strcasecmp(menu0,"error absoluto")==0||strcasecmp(menu0,"error absoluto medio")==0)
+							{
+								printf("\nEscriba el nombre del tipo en especifico para calcular el error absoluto medio entre 2021-2022\n\n");
+								for(i=0;i<energiastot_e;i++)
+								{
+									printf("%i. %s\n",i+1,energia[i].nombre);
+								} 
+								i=0;
+								printf("\n");
+								scanf(" %[^\n]",opcion3);
+								for(i=0;i<energiastot_e;i++)
+								{
+									if(strcasecmp(opcion3,energia[i].nombre)==0)
+									{
+										//printf("analizando: %i\n",i+1);
+										energiapredecir=i+1;
+										break;
+									}
+								}
+								if(strcasecmp(opcion3,energia[i].nombre)!=0)
+								{
+									printf("\n\n\n\n");
+									continue;
+								}
+								i=0;
+								energiapredecir--;
+								errorabsolutomedio(energia,energiapredecir, contfechas_e);
+							}
+							
+						if(strcasecmp(menu0,"3")==0||strcasecmp(menu0,"Predicciones para el anio 2023")==0||strcasecmp(menu0,"predicciones")==0)
+						{
+							printf("\n1. Mostrar predicciones de todos los tipos (renovables y no renovables)\n2. Elegir un tipo especifico para mostrar una prediccion a futuro\n3. Error absoluto medio de las predicciones de 2023 respecto 2022\n");
+				        	scanf(" %[^\n]",opcion4);
+				        	
+				        	if(strcasecmp(opcion4,"1")==0||strcasecmp(opcion4,"Mostrar predicciones de todos los (renovables y no renovables)")==0||strcasecmp(opcion4,"renovables y no renovables")==0||strcasecmp(opcion4,"todos los tipos")==0||strcasecmp(opcion4,"todos los datos disponibles")==0||strcasecmp(opcion4,"todos")==0)
+				        	{
+				        		for(i=0;i<energiastot_e;i++) 
+				        		{
+				        			
+									rectaregresion(energia,i,contfechas_e/2);
+									
+								}
+								i=0;
+								j=0;
+							}
+							
+							if(strcasecmp(opcion4, "2") == 0 || strcasecmp(opcion4, "Elegir un tipo especifico para mostrar una prediccion a futuro") == 0 || strcasecmp(opcion4, "un tipo especifico") == 0 || strcasecmp(opcion4, "elegir un tipo especifico para mostrar") == 0)
+							{
+								printf("\nEscriba el nombre del tipo en especifico para ver una prediccion de los datos para 2023\n\n");
+								for(i=0;i<energiastot_e;i++)
+								{
+									printf("%i. %s\n",i+1,energia[i].nombre);
+								} 
+								i=0;
+								printf("\n");
+								scanf(" %[^\n]",opcion5);
+								for(i=0;i<energiastot_e;i++)
+								{
+									if(strcasecmp(opcion5,energia[i].nombre)==0)
+									{
+										//printf("analizando: %i\n",i+1);
+										energiapredecir=i+1;
+										break;
+									}
+								}
+								i=0;
+								energiapredecir--;
+								rectaregresion(energia,energiapredecir,contfechas_e/2);
+							}
+							
+							if(strcasecmp(opcion4, "3") == 0 || strcasecmp(opcion4, "Error absoluto medio de las predicciones de 2023 respecto 2022") == 0 || strcasecmp(opcion4, "Error absoluto medio") == 0 || strcasecmp(opcion4, "Error absoluto medio de las predicciones de 2023") == 0)
+							{
+								printf("\nEscriba el nombre del tipo en especifico para calcular el error absoluto medio de 2023 respecto 2022\n\n");
+								for(i=0;i<energiastot_e;i++)
+								{
+									printf("%i. %s\n",i+1,energia[i].nombre);
+								} 
+								i=0;
+								printf("\n");
+								scanf(" %[^\n]",opcion6);
+								for(i=0;i<energiastot_e;i++)
+								{
+									if(strcasecmp(opcion6,energia[i].nombre)==0)
+									{
+										//printf("analizando: %i\n",i+1);
+										energiapredecir=i+1;
+										break;
+									}
+								}
+								i=0;
+								energiapredecir--;
+								errorabsolutomedio2023(energia,energiapredecir,contfechas_e/2);
+							}
+						}
+						if((strcasecmp(menu0,"4")==0||strcasecmp(menu0,"volver al menu de predicciones")==0||strcasecmp(menu0,"volver al menu")==0||strcasecmp(menu0,"SALIR")==0))
+						{
+							printf("\n\n");
+							break;
+						}
+						printf("\n\n");
+				    	} while (strcmp(menu0,"ñ")!=0);
+						
+						//final
+						if (error == 1) 
+						{
+					        printf("Ocurrio un error en la funcion predicciones.\n");
+					        return;
+						}
+				}
+			
+			
 				
 				//predicciones generacion mensual
 				void prediccionesgeneracionmensual()
@@ -7428,8 +8098,8 @@ void predicciones()
 			            r++;
 			        }
 			    }
-			    printf("\nmedia de dias = %f", mediax);
-			    printf("\nmedia de energia generada = %f", mediay);
+			    printf("\nmedia de dias = %f dias", mediax);
+			    printf("\nmedia de energia generada = %f GWh", mediay);
 			    printf("\npendiente recta = %f", pendiente);
 			    printf("\nb = %f\n\n", b);
 							i=0;
@@ -7907,7 +8577,7 @@ void predicciones()
 	
 	do
 	{
-	printf("PREDICCIONES SOBRE:\n\n1. GENERACION MENSUAL DE ENERGIA\n2. EMISIONES DE CO2\n3. VOLVER AL MENU PRINCIPAL\n\nSeleccione una opcion:");
+	printf("\n\nPREDICCIONES A NIVEL NACIONAL SOBRE:\n\n1. GENERACION MENSUAL DE ENERGIA\n2. EMISIONES DE CO2\n3. EVOLUCION DE LA POTENCIA INSTALADA\n4. VOLVER AL MENU PRINCIPAL\n\nSeleccione una opcion:");
 	scanf(" %[^\n]",menu00);
 	
 	if(strcasecmp(menu00,"generacion mensual de energia")==0||strcasecmp(menu00,"1")==0||strcasecmp(menu00,"prediccion sobre generacion mensual de energia")==0)
@@ -7915,7 +8585,7 @@ void predicciones()
 	prediccionesgeneracionmensual();
 	}
 	
-	if(strcasecmp(menu00,"3")==0||strcasecmp(menu00,"Volver al menu principal")==0||strcasecmp(menu00,"menu principal")==0||strcasecmp(menu00,"MENU")==0||strcasecmp(menu00,"Volver al menu")==0||strcasecmp(menu00,"MENU")==0||strcasecmp(menu00,"SALIR")==0)
+	if(strcasecmp(menu00,"4")==0||strcasecmp(menu00,"Volver al menu principal")==0||strcasecmp(menu00,"menu principal")==0||strcasecmp(menu00,"MENU")==0||strcasecmp(menu00,"Volver al menu")==0||strcasecmp(menu00,"MENU")==0||strcasecmp(menu00,"SALIR")==0)
 	{
 				printf("\n\n");
 				menu();
@@ -7925,6 +8595,14 @@ void predicciones()
 	if(strcasecmp(menu00,"emisiones de co2")==0||strcasecmp(menu00,"2")==0||strcasecmp(menu00,"emision de co2")==0)
 	{
 	prediccionesemisionco2();
+	}
+	printf("\n\n");
+	
+	
+	
+	if(strcasecmp(menu00,"evolucion potencia instalada")==0||strcasecmp(menu00,"3")==0||strcasecmp(menu00,"potencia instalada")==0)
+	{
+	prediccionesevpi();
 	}
 	printf("\n\n");
 	}

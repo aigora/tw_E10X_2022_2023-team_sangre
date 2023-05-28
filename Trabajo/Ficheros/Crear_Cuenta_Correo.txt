@@ -1,5 +1,9 @@
 david1@gmail.com
 david2@gmail.com
 gonzalomorcillo8@gmail.com
+<<<<<<< HEAD
 davidjandia2004@gmail.com
 alvarocuesta15@gmail.com
+=======
+eduardo0315l@gmail.com
+>>>>>>> cf94252d2cb343d5c20cde0ae12679bacbe1905f
