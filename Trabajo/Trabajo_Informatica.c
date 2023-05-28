@@ -2913,6 +2913,7 @@ void f_comparacion () /*Funcion Comparacion*/
     {
         case 'a': // Parte de Alvaro//
         {
+        	
             break;
         }
         
