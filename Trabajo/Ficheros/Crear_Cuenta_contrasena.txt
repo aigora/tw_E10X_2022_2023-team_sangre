@@ -1,9 +1,1 @@
 david1@gmail.com;david1
-david2@gmail.com;david2
-gonzalomorcillo8@gmail.com;Morcillo8
-<<<<<<< HEAD
-davidjandia2004@gmail.com;David16
-alvarocuesta15@gmail.com;SrAlvaro15
-=======
-eduardo0315l@gmail.com;soyedu03
->>>>>>> cf94252d2cb343d5c20cde0ae12679bacbe1905f
