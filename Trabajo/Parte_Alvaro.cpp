@@ -3,7 +3,7 @@
 /*Este comando pertenece a parte de la parte de Álvaro. Debido a que por alguna razón no logramos averiguar porque cuando estamos en el menú de comparaciones
 y seleccionamos a no se ejecuta y tras revisar varias veces, tanto el switch, dentro del switch y la forma del void para el switch no logramos solucionarlo. 
 Tambien hemos intententado crear una unica funcion que aglutine todo el codigo pero ha sido fallido. Aqui esta el código el cuál deberia funcionar y estar 
-incluido en el trabajo original, en la linea de comando prinicipal*/
+incluido en el trabajo original, en la linea de comando prinicipal. Se ha incliudo en la wiki imágenes de como sería ejecutado en caso de que también fallará*/
 
 
 void solicitarAnios(int *anio1, int *anio2) {
