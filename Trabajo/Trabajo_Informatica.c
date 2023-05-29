@@ -2915,6 +2915,7 @@ void f_comparacion () /*Funcion Comparacion*/
     {
         case 'a': // Parte de Alvaro//
         {
+        	printf ("Aqui se encontraria el trabajo realizado por Alvaro Cuesta Sanz (si este funcionara correctamente)\n");
             break;
         }
         
@@ -3460,7 +3461,7 @@ void f_comparacion_ficheros (int anio_mes_void, int mes_void, int *hidraulica_0,
         if (mes_void == 4)
         {
             FILE *plectura_2020_abril;
-            plectura_2020_abril = fopen("Ficheros_Comparaciones/2020/2020_abril.csv.txt", "r");
+            plectura_2020_abril = fopen("Ficheros_Comparaciones/2020/2020_abril.csv", "r");
             if (plectura_2020_abril == NULL)
             {
                 printf("Error al abrir el fichero de lectura (04/2020).\n");
