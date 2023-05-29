@@ -3100,7 +3100,7 @@ void f_comparacion_menu (char *eleccion_comparacion) /*Funcion Menu de Comparaci
     {	
         printf("\n");
 		printf("Seleccione que datos desea comparar \n");
-        printf("a.-Comparacion de Datos Anuales \n");
+        printf("a.-Parte de Alvaro \n");
         printf("b.-Comparacion de Datos Mensuales \n");
         printf("c.-Salir al Menu \n ");
         printf("Seleccione la opcion a realizar introduciendo (a | b | c). \n");
